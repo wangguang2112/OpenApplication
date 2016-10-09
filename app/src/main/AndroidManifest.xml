@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+          package="com.guang.wang.openapplication">
+
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
+    <uses-permission android:name="android.permission.INTERNET"/>
+
+    <application
+            android:allowBackup="true"
+            android:icon="@mipmap/ic_launcher"
+            android:label="@string/app_name"
+            android:supportsRtl="true"
+            android:theme="@style/AppTheme">
+        <activity android:name=".MainActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN"/>
+
+                <category android:name="android.intent.category.LAUNCHER"/>
+            </intent-filter>
+        </activity>
+        <activity android:name=".okhttp.OkhttpMainActivity">
+        </activity>
+        <activity android:name=".rxjava.RxJavaActivity">
+        </activity>
+        <activity android:name=".rxjava.RxJavaForResultActivty">
+        </activity>
+        <activity android:name=".syn.AsynActivity">
+        </activity>
+        <activity android:name=".dialog.DialogActivity">
+        </activity>
+        <activity
+                android:name=".webview.WebViewActivity"
+                android:parentActivityName=".MainActivity">
+        </activity>
+        <activity
+                android:name=".scroll.ScrollActivity"
+                android:theme="@style/Theme.AppCompat.Light.NoActionBar">
+        </activity>
+        <activity android:name=".scroll.ScrollOriginActivity">
+        </activity>
+    </application>
+
+</manifest>
