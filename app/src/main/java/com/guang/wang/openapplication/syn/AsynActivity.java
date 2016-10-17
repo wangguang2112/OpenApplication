@@ -65,8 +65,8 @@ public class AsynActivity extends AppCompatActivity {
         super.onResume();
         Log.d("wang","MainThread onReusume id="+Thread.currentThread().getId());
 
-        Intent intent=new Intent(this, RxJavaActivity.class);
-        startActivity(intent);
+//        Intent intent=new Intent(this, RxJavaActivity.class);
+//        startActivity(intent);
         mHandler.postDelayed(new Runnable() {
             @Override
             public void run() {

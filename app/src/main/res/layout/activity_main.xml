@@ -48,4 +48,9 @@
             android:clickable="true"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" android:id="@+id/scroll"/>
+    <Button
+            android:text="TScroll"
+            android:clickable="true"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" android:id="@+id/tscroll"/>
 </LinearLayout>

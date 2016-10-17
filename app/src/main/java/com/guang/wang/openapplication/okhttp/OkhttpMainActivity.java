@@ -4,6 +4,7 @@ import com.guang.wang.openapplication.R;
 
 import android.os.Handler;
 import android.os.Message;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -37,12 +38,29 @@ public class OkhttpMainActivity extends AppCompatActivity {
     };
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        Log.d("wwww","focus"+hasWindowFocus()+"");
+        final AlertDialog d=new AlertDialog.Builder(this).create();
+        d.show();
+        Log.d("wwww","focus"+hasWindowFocus()+"");
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_okhttp_main);
         mEditText= (EditText) findViewById(R.id.urltext);
         mEditText.setText("http://wangguang2112.github.io/operate.xml");
         mTextView= (TextView) findViewById(R.id.ok_result_text);
     }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        Log.d("wwww","onStart"+hasWindowFocus()+"");
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        Log.d("wwww","onResume"+hasWindowFocus()+"");
+    }
+
     void downclick(View view){
         String url=mEditText.getText().toString();
         if(!url.equals("")) {
