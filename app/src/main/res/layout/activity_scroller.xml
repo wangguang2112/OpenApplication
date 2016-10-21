@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:id="@+id/activity_scroller"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:paddingLeft="@dimen/activity_horizontal_margin"
+        android:paddingRight="@dimen/activity_horizontal_margin"
+        android:paddingTop="@dimen/activity_vertical_margin"
+        android:paddingBottom="@dimen/activity_vertical_margin"
+        android:background="#eee"
+        tools:context="com.guang.wang.openapplication.scroll.ScrollerActivity">
+    <com.guang.wang.openapplication.scroll.other.UseScrollerView
+            android:layout_width="match_parent"
+            android:background="#fff"
+            android:id="@+id/scroller_layout"
+            android:layout_height="match_parent">
+        <View android:layout_width="match_parent"
+              android:layout_height="100dp"
+              android:background="@color/colorAccent"/>
+    </com.guang.wang.openapplication.scroll.other.UseScrollerView>
+</RelativeLayout>

@@ -4,6 +4,8 @@ import com.guang.wang.openapplication.dialog.DialogActivity;
 import com.guang.wang.openapplication.okhttp.OkhttpMainActivity;
 import com.guang.wang.openapplication.rxjava.RxJavaActivity;
 import com.guang.wang.openapplication.scroll.ScrollActivity;
+import com.guang.wang.openapplication.scroll.ScrollerActivity;
+import com.guang.wang.openapplication.scroll.TScrollActivity;
 import com.guang.wang.openapplication.syn.AsynActivity;
 import com.guang.wang.openapplication.webview.WebViewActivity;
 
@@ -41,6 +43,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     private Button appTV;
 
+    private Button tscrollTV;
+
+    private Button scroller;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -54,6 +60,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         synTV= (Button) findViewById(R.id.asyn);
         webTV= (Button) findViewById(R.id.web);
         appTV= (Button) findViewById(R.id.application);
+        tscrollTV= (Button) findViewById(R.id.tscroll);
+        scroller= (Button) findViewById(R.id.scroller);
+        tscrollTV.setOnClickListener(this);
         dialogTV.setOnClickListener(this);
         okhttpTV.setOnClickListener(this);
         rxjavaTV.setOnClickListener(this);
@@ -61,7 +70,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         synTV.setOnClickListener(this);
         webTV.setOnClickListener(this);
         appTV.setOnClickListener(this);
-
+        scroller.setOnClickListener(this);
     }
 
     @Override
@@ -90,6 +99,12 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 break;
             case R.id.asyn:
                 startActivity(new Intent(MainActivity.this, AsynActivity.class));
+                break;
+            case R.id.tscroll:
+                startActivity(new Intent(MainActivity.this, TScrollActivity.class));
+                break;
+            case R.id.scroller:
+                startActivity(new Intent(MainActivity.this, ScrollerActivity.class));
                 break;
         }
     }

@@ -22,14 +22,14 @@ public class ScrollOriginActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_scroll_origin);
         view= (EdgeView) findViewById(R.id.view);
-        mHandler.postDelayed(new Runnable() {
-            @Override
-            public void run() {
-//                view.setBackgroundResource(R.color.colorPrimaryDark);
-                view.postInvalidate();
-//                Toast.makeText(ScrollOriginActivity.this,"123",Toast.LENGTH_SHORT).show();
-            }
-        },2000);
+//        mHandler.postDelayed(new Runnable() {
+//            @Override
+//            public void run() {
+////                view.setBackgroundResource(R.color.colorPrimaryDark);
+//                view.postInvalidate();
+////                Toast.makeText(ScrollOriginActivity.this,"123",Toast.LENGTH_SHORT).show();
+//            }
+//        },2000);
 //        view.postDelayed(new Runnable() {
 //            @Override
 //            public void run() {

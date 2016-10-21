@@ -40,6 +40,8 @@
         </activity>
         <activity android:name=".scroll.TScrollActivity">
         </activity>
+        <activity android:name=".scroll.ScrollerActivity">
+        </activity>
     </application>
 
 </manifest>
