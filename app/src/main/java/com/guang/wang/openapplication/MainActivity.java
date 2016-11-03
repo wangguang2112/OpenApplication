@@ -3,6 +3,7 @@ package com.guang.wang.openapplication;
 import com.guang.wang.openapplication.dialog.DialogActivity;
 import com.guang.wang.openapplication.okhttp.OkhttpMainActivity;
 import com.guang.wang.openapplication.rxjava.RxJavaActivity;
+import com.guang.wang.openapplication.scroll.DragHelperActivity;
 import com.guang.wang.openapplication.scroll.ScrollActivity;
 import com.guang.wang.openapplication.scroll.ScrollerActivity;
 import com.guang.wang.openapplication.scroll.TScrollActivity;
@@ -13,6 +14,7 @@ import org.w3c.dom.Text;
 
 import android.content.Context;
 import android.content.Intent;
+import android.net.Uri;
 import android.provider.Settings;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -20,6 +22,8 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
@@ -47,6 +51,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     private Button scroller;
 
+    private Button drag;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -62,6 +68,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         appTV= (Button) findViewById(R.id.application);
         tscrollTV= (Button) findViewById(R.id.tscroll);
         scroller= (Button) findViewById(R.id.scroller);
+        drag= (Button) findViewById(R.id.dragerhelp);
         tscrollTV.setOnClickListener(this);
         dialogTV.setOnClickListener(this);
         okhttpTV.setOnClickListener(this);
@@ -71,6 +78,30 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         webTV.setOnClickListener(this);
         appTV.setOnClickListener(this);
         scroller.setOnClickListener(this);
+        drag.setOnClickListener(this);
+    }
+
+    public  void call(String number, Context context) {
+        try {
+            Intent intent = new Intent();
+            intent.setAction("android.intent.action.DIAL");
+            intent.setData(Uri.parse("tel:" + number));
+            context.startActivity(intent);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        menu.add("拨打电话");
+        return super.onCreateOptionsMenu(menu);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        call("0311-88343586",this);
+        return true ;
+
     }
 
     @Override
@@ -105,6 +136,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 break;
             case R.id.scroller:
                 startActivity(new Intent(MainActivity.this, ScrollerActivity.class));
+                break;
+            case R.id.dragerhelp:
+                startActivity(new Intent(MainActivity.this, DragHelperActivity.class));
                 break;
         }
     }

@@ -42,6 +42,8 @@
         </activity>
         <activity android:name=".scroll.ScrollerActivity">
         </activity>
+        <activity android:name=".scroll.DragHelperActivity">
+        </activity>
     </application>
 
 </manifest>
