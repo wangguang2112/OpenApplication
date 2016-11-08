@@ -129,6 +129,7 @@ public class ScrollActivity extends AppCompatActivity implements OnMyScrollChang
     @Override
     public void onScrollOver(int initH, int l, int t) {
         Log.d(TAG, "onScrollOver() called with: initH = [" + initH + "], l = [" + l + "], t = [" + t + "]");
+        //在这处理一下 最中结果
 //        int col =t - destShowTitle-initH;
 //        Log.d(TAG,"onScrollOver() col="+col);
 //        if(col>0&&col<80){

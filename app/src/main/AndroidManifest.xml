@@ -44,6 +44,8 @@
         </activity>
         <activity android:name=".scroll.DragHelperActivity">
         </activity>
+        <activity android:name=".scroll.NestedScrollActivity">
+        </activity>
     </application>
 
 </manifest>

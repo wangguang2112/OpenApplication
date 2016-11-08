@@ -5,62 +5,11 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical"
-        android:paddingLeft="@dimen/activity_horizontal_margin"
-        android:paddingRight="@dimen/activity_horizontal_margin"
-        android:paddingTop="@dimen/activity_vertical_margin"
-        android:paddingBottom="@dimen/activity_vertical_margin"
         tools:context="com.guang.wang.openapplication.MainActivity">
+     <ListView android:layout_width="match_parent"
+               android:id="@+id/list"
+               android:divider="#eee"
+               android:layout_height="match_parent">
 
-    <Button
-            android:text="打开应用程序设置"
-            android:clickable="true"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content" android:id="@+id/application"/>
-    <Button
-
-            android:text="okhttp"
-            android:clickable="true"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content" android:id="@+id/okhttp"/>
-    <Button
-            android:text="rxjava"
-            android:clickable="true"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content" android:id="@+id/rxjava"/>
-    <Button
-            android:text="asyn"
-            android:clickable="true"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content" android:id="@+id/asyn"/>
-
-    <Button
-            android:text="dialog"
-            android:clickable="true"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content" android:id="@+id/dialog"/>
-    <Button
-            android:text="web"
-            android:clickable="true"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content" android:id="@+id/web"/>
-    <Button
-            android:text="scroll"
-            android:clickable="true"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content" android:id="@+id/scroll"/>
-    <Button
-            android:text="TScroll"
-            android:clickable="true"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content" android:id="@+id/tscroll"/>
-    <Button
-            android:text="Scroller"
-            android:clickable="true"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content" android:id="@+id/scroller"/>
-    <Button
-            android:text="DragHelper"
-            android:clickable="true"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content" android:id="@+id/dragerhelp"/>
+     </ListView>
 </LinearLayout>

@@ -52,8 +52,6 @@ public class UserDragHelpView extends FrameLayout {
             @Override
             public void onViewReleased(View releasedChild, float xvel, float yvel) {
                 super.onViewReleased(releasedChild, xvel, yvel);
-                mHelper.smoothSlideViewTo(releasedChild,0,0);
-                postInvalidateOnAnimation();
             }
         };
         mHelper =ViewDragHelper.create(this,callback);

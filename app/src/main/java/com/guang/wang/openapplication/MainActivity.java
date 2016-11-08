@@ -4,54 +4,40 @@ import com.guang.wang.openapplication.dialog.DialogActivity;
 import com.guang.wang.openapplication.okhttp.OkhttpMainActivity;
 import com.guang.wang.openapplication.rxjava.RxJavaActivity;
 import com.guang.wang.openapplication.scroll.DragHelperActivity;
+import com.guang.wang.openapplication.scroll.NestedScrollActivity;
 import com.guang.wang.openapplication.scroll.ScrollActivity;
 import com.guang.wang.openapplication.scroll.ScrollerActivity;
 import com.guang.wang.openapplication.scroll.TScrollActivity;
 import com.guang.wang.openapplication.syn.AsynActivity;
 import com.guang.wang.openapplication.webview.WebViewActivity;
 
-import org.w3c.dom.Text;
-
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
-import android.net.Uri;
+import android.os.Bundle;
 import android.provider.Settings;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
-import android.widget.EditText;
-import android.widget.TextView;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
+import android.widget.ListView;
+import android.widget.Toast;
 
 //自带生命周期测算
-public class MainActivity extends AppCompatActivity implements View.OnClickListener {
+public class MainActivity extends AppCompatActivity implements  AdapterView.OnItemClickListener {
+    private ListView mListView;
 
-    private Button dialogTV;
+    ArrayAdapter<String> adapter;
 
-    private Button okhttpTV;
+    private String[] texts = new String[]{"应用程序", "okhttp", "rxjava", "asyn", "dialog", "web", "scroll", "Tscroll", "Scroller", "DragHelper", "Nested"};
 
-    private Button rxjavaTV;
-
-    private Button scrollTV;
-
-    private Button synTV;
-
-    private Button webTV;
-
-    private Button appTV;
-
-    private Button tscrollTV;
-
-    private Button scroller;
-
-    private Button drag;
+    private Class<? extends Activity>[] mActivities = new Class[]{null, OkhttpMainActivity.class, RxJavaActivity.class, AsynActivity.class, DialogActivity.class, WebViewActivity.class,
+            ScrollActivity.class,TScrollActivity.class,ScrollerActivity.class,DragHelperActivity.class, NestedScrollActivity.class};
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -59,87 +45,26 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         Log.d("wangguang", "Activty::onCreate");
         setContentView(R.layout.activity_main);
         getSupportFragmentManager().beginTransaction().add(new MyFramgment(), "test").commit();
-        dialogTV= (Button) findViewById(R.id.dialog);
-        okhttpTV= (Button) findViewById(R.id.okhttp);
-        rxjavaTV= (Button) findViewById(R.id.rxjava);
-        scrollTV=(Button)findViewById(R.id.scroll);
-        synTV= (Button) findViewById(R.id.asyn);
-        webTV= (Button) findViewById(R.id.web);
-        appTV= (Button) findViewById(R.id.application);
-        tscrollTV= (Button) findViewById(R.id.tscroll);
-        scroller= (Button) findViewById(R.id.scroller);
-        drag= (Button) findViewById(R.id.dragerhelp);
-        tscrollTV.setOnClickListener(this);
-        dialogTV.setOnClickListener(this);
-        okhttpTV.setOnClickListener(this);
-        rxjavaTV.setOnClickListener(this);
-        scrollTV.setOnClickListener(this);
-        synTV.setOnClickListener(this);
-        webTV.setOnClickListener(this);
-        appTV.setOnClickListener(this);
-        scroller.setOnClickListener(this);
-        drag.setOnClickListener(this);
+        mListView= (ListView) findViewById(R.id.list);
+        adapter=new ArrayAdapter<String>(this,android.R.layout.simple_list_item_1,texts);
+        mListView.setAdapter(adapter);
+        mListView.setOnItemClickListener(this);
     }
 
-    public  void call(String number, Context context) {
-        try {
-            Intent intent = new Intent();
-            intent.setAction("android.intent.action.DIAL");
-            intent.setData(Uri.parse("tel:" + number));
-            context.startActivity(intent);
-        } catch (Exception e) {
-            e.printStackTrace();
+
+    @Override
+    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+        if(texts.length!=mActivities.length){
+            Toast.makeText(this,"数据错误"+texts.length+"!="+mActivities.length,Toast.LENGTH_SHORT).show();
+            return;
         }
-    }
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        menu.add("拨打电话");
-        return super.onCreateOptionsMenu(menu);
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        call("0311-88343586",this);
-        return true ;
-
-    }
-
-    @Override
-    public void onClick(View v) {
-        switch (v.getId()) {
-            case R.id.application:
-                String action = Settings.ACTION_MANAGE_APPLICATIONS_SETTINGS;
-                Intent intent = new Intent(action);
-                startActivity(intent);
-                finish();
-                break;
-            case R.id.dialog:
-                startActivity(new Intent(MainActivity.this, DialogActivity.class));
-                break;
-            case R.id.okhttp:
-                startActivity(new Intent(MainActivity.this, OkhttpMainActivity.class));
-                break;
-            case R.id.rxjava:
-                startActivity(new Intent(MainActivity.this, RxJavaActivity.class));
-                break;
-            case R.id.scroll:
-                startActivity(new Intent(MainActivity.this, ScrollActivity.class));
-                break;
-            case R.id.web:
-                startActivity(new Intent(MainActivity.this, WebViewActivity.class));
-                break;
-            case R.id.asyn:
-                startActivity(new Intent(MainActivity.this, AsynActivity.class));
-                break;
-            case R.id.tscroll:
-                startActivity(new Intent(MainActivity.this, TScrollActivity.class));
-                break;
-            case R.id.scroller:
-                startActivity(new Intent(MainActivity.this, ScrollerActivity.class));
-                break;
-            case R.id.dragerhelp:
-                startActivity(new Intent(MainActivity.this, DragHelperActivity.class));
-                break;
+        if(position==0){
+            String action = Settings.ACTION_MANAGE_APPLICATIONS_SETTINGS;
+            Intent intent = new Intent(action);
+            startActivity(intent);
+            finish();
+        }else{
+            startActivity(new Intent(this,mActivities[position]));
         }
     }
 
