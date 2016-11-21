@@ -14,6 +14,8 @@ import com.guang.wang.openapplication.webview.WebViewActivity;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.net.Uri;
 import android.os.Bundle;
 import android.provider.Settings;
 import android.support.annotation.Nullable;
@@ -59,10 +61,17 @@ public class MainActivity extends AppCompatActivity implements  AdapterView.OnIt
             return;
         }
         if(position==0){
-            String action = Settings.ACTION_MANAGE_APPLICATIONS_SETTINGS;
+            String action = Settings.ACTION_APPLICATION_DETAILS_SETTINGS;
             Intent intent = new Intent(action);
+            intent.setData(Uri.fromParts("package","com.wuba.bangjob",null));
+            try {
+                getPackageManager().getPackageInfo("com.wuba.bangjob", PackageManager.GET_ACTIVITIES);
+            } catch (PackageManager.NameNotFoundException e) {
+                Toast.makeText(MainActivity.this,"未安装该APP!",Toast.LENGTH_SHORT).show();
+            }
             startActivity(intent);
             finish();
+
         }else{
             startActivity(new Intent(this,mActivities[position]));
         }

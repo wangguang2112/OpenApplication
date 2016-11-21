@@ -57,11 +57,12 @@ public class NestedChildView extends View implements NestedScrollingChild {
             case MotionEvent.ACTION_MOVE:
                 float deltaY = event.getY() - downY;
                 Log.d(TAG,"deltaY:"+deltaY);
+                //offsetInWindow这个表示父布局在窗口上的相对位移
                 if(dispatchNestedPreScroll(0,(int)deltaY,consumed,offsetInWindow)){
                     deltaY-=consumed[1];
                     Log.d(TAG,"child deltaY:"+deltaY);
                 }
-                //floor去地板 abs去绝对值
+                //floor去地板 abs去绝对值=
                 if(Math.floor(Math.abs(deltaY))==0){
                     deltaY=0;
                 }
@@ -112,7 +113,7 @@ public class NestedChildView extends View implements NestedScrollingChild {
 
     @Override
     public boolean dispatchNestedPreScroll(int dx, int dy, int[] consumed, int[] offsetInWindow) {
-        Log.d(TAG, "dispatchNestedPreScroll() called with: dx = [" + dx + "], dy = [" + dy + "], consumed = [" + consumed + "], offsetInWindow = [" + offsetInWindow + "]");
+        Log.d(TAG, "dispatchNestedPreScroll() called with: dx = [" + dx + "], dy = [" + dy + "], consumed = [" + consumed[1] + "], offsetInWindow = [" + offsetInWindow[1] + "]");
         return childHelper.dispatchNestedPreScroll(dx,dy,consumed,offsetInWindow);
     }
 

@@ -33,7 +33,7 @@ public class NestedParentView extends FrameLayout implements NestedScrollingPare
 
     @Override
     public void onNestedPreScroll(View target, int dx, int dy, int[] consumed) {
-        Log.d(TAG, "onNestedPreScroll() called with: target = [" + "view" + "], dx = [" + dx + "], dy = [" + dy + "], consumed = [" + consumed + "]");
+        Log.d(TAG, "onNestedPreScroll() called with: target = [" + "view" + "], dx = [" + dx + "], dy = [" + dy + "], consumed = [" + consumed[1] + "]");
         final float shouldMoveY=getY();
 
         final View parent=(View)getParent();
@@ -63,6 +63,9 @@ public class NestedParentView extends FrameLayout implements NestedScrollingPare
     }
 
     @Override
+    /**
+     * axes为轴心的意思 这里用来判断是横向的还是纵向的
+     */
     public int getNestedScrollAxes() {
         Log.d(TAG, "getNestedScrollAxes() called");
         return mHelper.getNestedScrollAxes();

@@ -72,8 +72,12 @@ public class DrawerView extends FrameLayout {
 
             @Override
             public void onViewPositionChanged(View changedView, int left, int top, int dx, int dy) {
-                Log.d(TAG, "onViewPositionChanged() called with: changedView = [" + changedView + "], left = [" + left + "], top = [" + top + "], dx = [" + dx + "], dy = [" + dy + "]");
+                Log.d(TAG, "onViewPositionChanged() called with: left = [" + left + "], top = [" + top + "], dx = [" + dx + "], dy = [" + dy + "]");
                 super.onViewPositionChanged(changedView, left, top, dx, dy);
+                float scale=1-(Math.min(Math.abs((float) left/vw),1.0f))/3;
+                Log.d(TAG, "onViewPositionChanged() called with: scale = [" + scale + "]");
+                changedView.setScaleX(scale);
+                changedView.setScaleY(scale);
                 menu.offsetLeftAndRight(dx);
             }
 

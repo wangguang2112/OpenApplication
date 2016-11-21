@@ -23,6 +23,9 @@ public class RxJavaActivity extends AppCompatActivity {
     ActivityCallBakck callback;
     Button mButton;
     Button mJumpButton;
+
+    private String TAG="RxJavaActivity";
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -76,10 +79,40 @@ public class RxJavaActivity extends AppCompatActivity {
                Log.d("wang","back");
             }
         });
+
+        Observable
+                .just(1,2,3,4)
+                .map(new Func1<Integer, Integer>() {
+                    @Override
+                    public Integer call(Integer integer) {
+                        if(integer==3 ){
+                            throw new RuntimeException();
+                        }
+                        return integer;
+                    }
+                })
+                .subscribe(new Subscriber<Integer>() {
+                    @Override
+                    public void onCompleted() {
+                        Log.d(TAG, "onCompleted() called");
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+                        Log.d(TAG, "onError() called with: e = [" + e + "]");
+                    }
+
+                    @Override
+                    public void onNext(Integer integer) {
+                        Log.d(TAG, "onNext() called with: integer = [" + integer + "]");
+                    }
+                });
     }
 
     /**
      * 调度器的使用
+     * observeOn作用于下边的操作
+     * subscribeOn作用于上边的操作和observeOn之前的操作
      */
     void rxjavaTest1() {
         Observable.create(new Observable.OnSubscribe<String>() {

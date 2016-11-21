@@ -22,6 +22,14 @@
             android:text="GO"
             android:layout_below="@+id/urltext"
             android:onClick="downclick"/>
+    <TextView android:layout_width="match_parent"
+              android:layout_below="@id/urltext"
+              android:id="@+id/timer"
+              android:text="123"
+              android:textSize="16dp"
+              android:gravity="center"
+              android:layout_marginTop="50dp"
+              android:layout_height="wrap_content"/>
     <TextView android:layout_width="match_parent" android:layout_height="wrap_content" android:text=""
-              android:id="@+id/ok_result_text" android:layout_below="@id/urltext" android:layout_marginTop="60dp"/>
+              android:id="@+id/ok_result_text" android:layout_below="@id/timer" android:layout_marginTop="60dp"/>
 </RelativeLayout>
