@@ -22,6 +22,7 @@ public class WebViewActivity extends AppCompatActivity {
         mWebView= (WebView) findViewById(R.id.web_view);
         mWebView.canGoBack();
         mWebView.setWebViewClient(new MyClient());
+        mWebView.loadUrl("http://www.baidu.com");
     }
     public class MyClient extends WebViewClient{
 

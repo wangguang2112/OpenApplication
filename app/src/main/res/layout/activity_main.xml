@@ -6,14 +6,13 @@
         android:layout_height="match_parent"
         android:orientation="vertical"
         tools:context="com.guang.wang.openapplication.MainActivity">
-     <ListView android:layout_width="match_parent"
-               android:id="@+id/list"
-               android:divider="#eee"
-               android:layout_marginLeft="10dp"
-               android:layout_marginRight="10dp"
-               android:scrollbars="none"
-               android:dividerHeight="1dp"
-               android:layout_height="match_parent">
-
-     </ListView>
+    <ExpandableListView android:layout_width="match_parent"
+                        android:id="@+id/list"
+                        android:childDivider="#eee"
+                        android:layout_marginLeft="10dp"
+                        android:layout_marginRight="10dp"
+                        android:scrollbars="none"
+                        android:layout_height="match_parent">
+        <!--  android:divider="#eee" android:dividerHeight="1dp"-->
+    </ExpandableListView>
 </LinearLayout>

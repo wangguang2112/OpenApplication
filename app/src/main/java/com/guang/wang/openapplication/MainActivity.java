@@ -1,5 +1,6 @@
 package com.guang.wang.openapplication;
 
+import com.guang.wang.openapplication.adapter.MainExListAdapter;
 import com.guang.wang.openapplication.dialog.DialogActivity;
 import com.guang.wang.openapplication.okhttp.OkhttpMainActivity;
 import com.guang.wang.openapplication.rxjava.RxJavaActivity;
@@ -27,15 +28,24 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.ExpandableListAdapter;
+import android.widget.ExpandableListView;
 import android.widget.ListView;
+import android.widget.SimpleExpandableListAdapter;
 import android.widget.Toast;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+
 //自带生命周期测算
-public class MainActivity extends AppCompatActivity implements  AdapterView.OnItemClickListener {
-    private ListView mListView;
+public class MainActivity extends AppCompatActivity implements  AdapterView.OnItemClickListener, ExpandableListView.OnGroupClickListener, ExpandableListView.OnChildClickListener {
+    private ExpandableListView mListView;
 
-    ArrayAdapter<String> adapter;
+    MainExListAdapter adapter;
 
+    private List<String> mGroupName;
+    private List<List<String>> mChildName;
     private String[] texts = new String[]{"应用程序", "okhttp", "rxjava", "asyn", "dialog", "web", "scroll", "Tscroll", "Scroller", "DragHelper", "Nested"};
 
     private Class<? extends Activity>[] mActivities = new Class[]{null, OkhttpMainActivity.class, RxJavaActivity.class, AsynActivity.class, DialogActivity.class, WebViewActivity.class,
@@ -47,33 +57,81 @@ public class MainActivity extends AppCompatActivity implements  AdapterView.OnIt
         Log.d("wangguang", "Activty::onCreate");
         setContentView(R.layout.activity_main);
         getSupportFragmentManager().beginTransaction().add(new MyFramgment(), "test").commit();
-        mListView= (ListView) findViewById(R.id.list);
-        adapter=new ArrayAdapter<String>(this,android.R.layout.simple_list_item_1,texts);
+        mListView= (ExpandableListView) findViewById(R.id.list);
+//        adapter=new ArrayAdapter<String>(this,android.R.layout.simple_list_item_1,texts);
+        initAdapterData();
         mListView.setAdapter(adapter);
-        mListView.setOnItemClickListener(this);
+        mListView.setOnGroupClickListener(this);
+        mListView.setOnChildClickListener(this);
+    }
+
+    private void initAdapterData() {
+        mGroupName= Arrays.asList("应用程序", "okhttp", "rxjava", "asyn", "dialog", "web", "scroll");
+        mChildName=new ArrayList<>();
+        mChildName.add(Arrays.asList("应用程序"));
+        mChildName.add(Arrays.asList("okhttp"));
+        mChildName.add(Arrays.asList("rxjava"));
+        mChildName.add(Arrays.asList("asyn"));
+        mChildName.add(Arrays.asList("dialog"));
+        mChildName.add(Arrays.asList("web"));
+        mChildName.add(Arrays.asList("scroll", "Tscroll", "Scroller", "DragHelper", "Nested"));
+        adapter=new MainExListAdapter(this,mGroupName,mChildName);
     }
 
 
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-        if(texts.length!=mActivities.length){
-            Toast.makeText(this,"数据错误"+texts.length+"!="+mActivities.length,Toast.LENGTH_SHORT).show();
-            return;
-        }
-        if(position==0){
-            String action = Settings.ACTION_APPLICATION_DETAILS_SETTINGS;
-            Intent intent = new Intent(action);
-            intent.setData(Uri.fromParts("package","com.wuba.bangjob",null));
-            try {
-                getPackageManager().getPackageInfo("com.wuba.bangjob", PackageManager.GET_ACTIVITIES);
-            } catch (PackageManager.NameNotFoundException e) {
-                Toast.makeText(MainActivity.this,"未安装该APP!",Toast.LENGTH_SHORT).show();
-            }
-            startActivity(intent);
-            finish();
 
+    }
+
+    @Override
+    public boolean onGroupClick(ExpandableListView parent, View v, int groupPosition, long id) {
+        int size=mChildName.get(groupPosition).size();
+        if(size==1){
+            if(texts.length!=mActivities.length){
+                Toast.makeText(this,"数据错误"+texts.length+"!="+mActivities.length,Toast.LENGTH_SHORT).show();
+                return false;
+            }
+            if(groupPosition==0){
+                String action = Settings.ACTION_APPLICATION_DETAILS_SETTINGS;
+                Intent intent = new Intent(action);
+                intent.setData(Uri.fromParts("package","com.wuba.bangjob",null));
+                try {
+                    getPackageManager().getPackageInfo("com.wuba.bangjob", PackageManager.GET_ACTIVITIES);
+                } catch (PackageManager.NameNotFoundException e) {
+                    Toast.makeText(MainActivity.this,"未安装该APP!",Toast.LENGTH_SHORT).show();
+                }
+                startActivity(intent);
+                finish();
+            }else{
+                startActivity(new Intent(this,mActivities[culAllSize(mChildName,groupPosition)]));
+            }
+            return true;
         }else{
-            startActivity(new Intent(this,mActivities[position]));
+            return false;
+        }
+
+    }
+
+    private int culAllSize(List<List<String>> lists,int position){
+        if(position==0){
+            return 0;
+        }else {
+            int sum = 0;
+            for (int i = 0; i < position; i++) {
+                List list = lists.get(i);
+                sum +=list.size();
+            }
+            return sum;
+        }
+    }
+    @Override
+    public boolean onChildClick(ExpandableListView parent, View v, int groupPosition, int childPosition, long id) {
+        if(mChildName.get(groupPosition).size()!=1){
+            startActivity(new Intent(this,mActivities[culAllSize(mChildName,groupPosition)+childPosition]));
+            return true;
+        }else {
+            return false;
         }
     }
 

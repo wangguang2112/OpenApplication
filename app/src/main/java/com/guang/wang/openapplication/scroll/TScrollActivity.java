@@ -7,6 +7,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.lang.reflect.Field;
 
@@ -36,8 +37,13 @@ public class TScrollActivity extends AppCompatActivity {
                 t1.postInvalidate();
 
             }
-        },1000);
-
+        },20000);
+        t2.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Toast.makeText(TScrollActivity.this,"t2",Toast.LENGTH_SHORT).show();
+            }
+        });
 
     }
 }
