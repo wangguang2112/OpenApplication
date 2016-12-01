@@ -6,11 +6,11 @@
     <uses-permission android:name="android.permission.INTERNET"/>
 
     <application
-            android:allowBackup="true"
-            android:icon="@mipmap/ic_launcher"
-            android:label="@string/app_name"
-            android:supportsRtl="true"
-            android:theme="@style/AppTheme">
+        android:allowBackup="true"
+        android:icon="@mipmap/ic_launcher"
+        android:label="@string/app_name"
+        android:supportsRtl="true"
+        android:theme="@style/AppTheme">
         <activity android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
@@ -29,12 +29,12 @@
         <activity android:name=".dialog.DialogActivity">
         </activity>
         <activity
-                android:name=".webview.WebViewActivity"
-                android:parentActivityName=".MainActivity">
+            android:name=".webview.WebViewActivity"
+            android:parentActivityName=".MainActivity">
         </activity>
         <activity
-                android:name=".scroll.ScrollActivity"
-                android:theme="@style/Theme.AppCompat.Light.NoActionBar">
+            android:name=".scroll.ScrollActivity"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar">
         </activity>
         <activity android:name=".scroll.ScrollOriginActivity">
         </activity>
@@ -47,6 +47,8 @@
         <activity android:name=".scroll.NestedScrollActivity">
         </activity>
         <activity android:name=".animate.AnimateActivity">
+        </activity>
+        <activity android:name=".animate.AnimateShareActivity">
         </activity>
     </application>
 

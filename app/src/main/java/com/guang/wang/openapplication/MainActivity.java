@@ -14,13 +14,16 @@ import com.guang.wang.openapplication.syn.AsynActivity;
 import com.guang.wang.openapplication.webview.WebViewActivity;
 
 import android.app.Activity;
+import android.app.ActivityOptions;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 import android.provider.Settings;
 import android.support.annotation.Nullable;
+import android.support.v4.app.ActivityOptionsCompat;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
@@ -100,7 +103,11 @@ public class MainActivity extends AppCompatActivity implements  AdapterView.OnIt
                 startActivity(intent);
                 finish();
             }else{
-                startActivity(new Intent(this,mActivities[culAllSize(mChildName,groupPosition)]));
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+                    startActivity(new Intent(this,mActivities[culAllSize(mChildName,groupPosition)]), ActivityOptions.makeSceneTransitionAnimation(this).toBundle());
+                }else{
+                    startActivity(new Intent(this,mActivities[culAllSize(mChildName,groupPosition)]));
+                }
             }
             return true;
         }else{

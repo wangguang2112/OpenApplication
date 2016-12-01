@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/activity_animate_share"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.guang.wang.openapplication.animate.AnimateShareActivity">
+    <TextView
+        android:layout_width="300dp"
+        android:transitionName="transition"
+        android:layout_centerInParent="true"
+        android:background="@color/color1"
+        android:layout_height="300dp"/>
+</RelativeLayout>
