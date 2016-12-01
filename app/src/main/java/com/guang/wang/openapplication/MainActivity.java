@@ -1,6 +1,7 @@
 package com.guang.wang.openapplication;
 
 import com.guang.wang.openapplication.adapter.MainExListAdapter;
+import com.guang.wang.openapplication.animate.AnimateActivity;
 import com.guang.wang.openapplication.dialog.DialogActivity;
 import com.guang.wang.openapplication.okhttp.OkhttpMainActivity;
 import com.guang.wang.openapplication.rxjava.RxJavaActivity;
@@ -49,7 +50,7 @@ public class MainActivity extends AppCompatActivity implements  AdapterView.OnIt
     private String[] texts = new String[]{"应用程序", "okhttp", "rxjava", "asyn", "dialog", "web", "scroll", "Tscroll", "Scroller", "DragHelper", "Nested"};
 
     private Class<? extends Activity>[] mActivities = new Class[]{null, OkhttpMainActivity.class, RxJavaActivity.class, AsynActivity.class, DialogActivity.class, WebViewActivity.class,
-            ScrollActivity.class,TScrollActivity.class,ScrollerActivity.class,DragHelperActivity.class, NestedScrollActivity.class};
+            ScrollActivity.class,TScrollActivity.class,ScrollerActivity.class,DragHelperActivity.class, NestedScrollActivity.class, AnimateActivity.class};
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -66,7 +67,7 @@ public class MainActivity extends AppCompatActivity implements  AdapterView.OnIt
     }
 
     private void initAdapterData() {
-        mGroupName= Arrays.asList("应用程序", "okhttp", "rxjava", "asyn", "dialog", "web", "scroll");
+        mGroupName= Arrays.asList("应用程序", "okhttp", "rxjava", "asyn", "dialog", "web", "scroll","animate");
         mChildName=new ArrayList<>();
         mChildName.add(Arrays.asList("应用程序"));
         mChildName.add(Arrays.asList("okhttp"));
@@ -75,10 +76,9 @@ public class MainActivity extends AppCompatActivity implements  AdapterView.OnIt
         mChildName.add(Arrays.asList("dialog"));
         mChildName.add(Arrays.asList("web"));
         mChildName.add(Arrays.asList("scroll", "Tscroll", "Scroller", "DragHelper", "Nested"));
+        mChildName.add(Arrays.asList("animate"));
         adapter=new MainExListAdapter(this,mGroupName,mChildName);
     }
-
-
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 
@@ -88,10 +88,6 @@ public class MainActivity extends AppCompatActivity implements  AdapterView.OnIt
     public boolean onGroupClick(ExpandableListView parent, View v, int groupPosition, long id) {
         int size=mChildName.get(groupPosition).size();
         if(size==1){
-            if(texts.length!=mActivities.length){
-                Toast.makeText(this,"数据错误"+texts.length+"!="+mActivities.length,Toast.LENGTH_SHORT).show();
-                return false;
-            }
             if(groupPosition==0){
                 String action = Settings.ACTION_APPLICATION_DETAILS_SETTINGS;
                 Intent intent = new Intent(action);

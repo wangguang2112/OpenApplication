@@ -5,6 +5,7 @@ import com.guang.wang.openapplication.R;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.webkit.DownloadListener;
 import android.webkit.WebChromeClient;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
@@ -21,9 +22,16 @@ public class WebViewActivity extends AppCompatActivity {
         setContentView(R.layout.activity_web_view);
         mWebView= (WebView) findViewById(R.id.web_view);
         mWebView.canGoBack();
-        mWebView.setWebViewClient(new MyClient());
+//        mWebView.setWebViewClient(new MyClient());
+
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
         mWebView.loadUrl("http://www.baidu.com");
     }
+
     public class MyClient extends WebViewClient{
 
         @Override
