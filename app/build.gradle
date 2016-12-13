@@ -26,4 +26,5 @@ dependencies {
     compile 'com.squareup.okhttp3:okhttp:3.2.0'
     compile 'io.reactivex:rxandroid:1.2.0'
     compile 'com.jakewharton.rxbinding:rxbinding:0.3.0'
+    compile project(':New_UIComponents')
 }

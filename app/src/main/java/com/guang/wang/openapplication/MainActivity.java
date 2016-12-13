@@ -13,6 +13,7 @@ import com.guang.wang.openapplication.scroll.TScrollActivity;
 import com.guang.wang.openapplication.syn.AsynActivity;
 import com.guang.wang.openapplication.webview.WebViewActivity;
 
+import android.Manifest;
 import android.app.Activity;
 import android.app.ActivityOptions;
 import android.content.Context;
@@ -23,11 +24,14 @@ import android.os.Build;
 import android.os.Bundle;
 import android.provider.Settings;
 import android.support.annotation.Nullable;
+import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.ActivityOptionsCompat;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
+import android.view.ContextMenu;
 import android.view.LayoutInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
@@ -43,30 +47,59 @@ import java.util.Arrays;
 import java.util.List;
 
 //自带生命周期测算
-public class MainActivity extends AppCompatActivity implements  AdapterView.OnItemClickListener, ExpandableListView.OnGroupClickListener, ExpandableListView.OnChildClickListener {
+public class MainActivity extends AppCompatActivity implements AdapterView.OnItemClickListener, ExpandableListView.OnGroupClickListener, ExpandableListView.OnChildClickListener {
+
     private ExpandableListView mListView;
 
     MainExListAdapter adapter;
 
     private List<String> mGroupName;
+
     private List<List<String>> mChildName;
+
     private String[] texts = new String[]{"应用程序", "okhttp", "rxjava", "asyn", "dialog", "web", "scroll", "Tscroll", "Scroller", "DragHelper", "Nested"};
 
     private Class<? extends Activity>[] mActivities = new Class[]{null, OkhttpMainActivity.class, RxJavaActivity.class, AsynActivity.class, DialogActivity.class, WebViewActivity.class,
-            ScrollActivity.class,TScrollActivity.class,ScrollerActivity.class,DragHelperActivity.class, NestedScrollActivity.class, AnimateActivity.class};
+            ScrollActivity.class, TScrollActivity.class, ScrollerActivity.class, DragHelperActivity.class, NestedScrollActivity.class, AnimateActivity.class};
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         Log.d("wangguang", "Activty::onCreate");
         setContentView(R.layout.activity_main);
-        getSupportFragmentManager().beginTransaction().add(new MyFramgment(), "test").commit();
-        mListView= (ExpandableListView) findViewById(R.id.list);
+        getSupportFragmentManager().beginTransaction()
+                                   .add(new MyFramgment(), "test")
+                                   .commit();
+        mListView = (ExpandableListView) findViewById(R.id.list);
 //        adapter=new ArrayAdapter<String>(this,android.R.layout.simple_list_item_1,texts);
         initAdapterData();
         mListView.setAdapter(adapter);
         mListView.setOnGroupClickListener(this);
         mListView.setOnChildClickListener(this);
+    }
+
+    @Override
+    public boolean onContextItemSelected(MenuItem item) {
+
+        if (item.getTitle()
+                .equals("call")) {
+            Intent intent = new Intent(Intent.ACTION_CALL);
+            intent.setData(Uri.parse("tel:15810826527"));
+            if (ActivityCompat.checkSelfPermission(this, Manifest.permission.CALL_PHONE) != PackageManager.PERMISSION_GRANTED) {
+                Toast.makeText(this,"未分配打电话权限",Toast.LENGTH_SHORT).show();
+                return false;
+            }
+            startActivity(intent);
+            return true;
+        }else{
+            return super.onContextItemSelected(item);
+        }
+    }
+
+    @Override
+    public void onCreateContextMenu(ContextMenu menu, View v, ContextMenu.ContextMenuInfo menuInfo) {
+        super.onCreateContextMenu(menu, v, menuInfo);
+        menu.add("call");
     }
 
     private void initAdapterData() {

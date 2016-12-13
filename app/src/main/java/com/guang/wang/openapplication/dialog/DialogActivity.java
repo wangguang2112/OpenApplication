@@ -2,9 +2,14 @@ package com.guang.wang.openapplication.dialog;
 
 import com.guang.wang.openapplication.R;
 
+import android.Manifest;
 import android.app.Dialog;
 import android.content.Context;
+import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.net.Uri;
 import android.os.Handler;
+import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -89,6 +94,12 @@ public class DialogActivity extends AppCompatActivity {
                 @Override
                 public void onClick(View v) {
                     popupWindow.showAsDropDown(b);
+                    Intent intent = new Intent(Intent.ACTION_CALL);
+                    intent.setData(Uri.parse("tel:15810826527"));
+                    if (ActivityCompat.checkSelfPermission(DialogActivity.this, Manifest.permission.CALL_PHONE) != PackageManager.PERMISSION_GRANTED) {
+                        Toast.makeText(DialogActivity.this,"未分配打电话权限",Toast.LENGTH_SHORT).show();
+                    }
+                    startActivity(intent);
                 }
             });
         }
