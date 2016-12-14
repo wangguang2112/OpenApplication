@@ -1,12 +1,13 @@
 package com.guang.wang.openapplication.scroll;
 
+import com.guang.wang.openapplication.BaseActivity;
 import com.guang.wang.openapplication.R;
 import com.guang.wang.openapplication.scroll.other.UseScrollerView;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 
-public class ScrollerActivity extends AppCompatActivity {
+public class ScrollerActivity extends BaseActivity {
     UseScrollerView view;
     @Override
     protected void onCreate(Bundle savedInstanceState) {

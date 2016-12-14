@@ -1,5 +1,6 @@
 package com.guang.wang.openapplication.animate;
 
+import com.guang.wang.openapplication.BaseActivity;
 import com.guang.wang.openapplication.R;
 
 import android.os.Build;
@@ -8,7 +9,7 @@ import android.os.Bundle;
 import android.transition.Fade;
 import android.view.Window;
 
-public class AnimateShareActivity extends AppCompatActivity {
+public class AnimateShareActivity extends BaseActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

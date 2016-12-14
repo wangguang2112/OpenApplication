@@ -1,5 +1,6 @@
 package com.guang.wang.openapplication.scroll;
 
+import com.guang.wang.openapplication.BaseActivity;
 import com.guang.wang.openapplication.R;
 
 import android.os.Handler;
@@ -11,7 +12,7 @@ import android.widget.Toast;
 
 import java.lang.reflect.Field;
 
-public class TScrollActivity extends AppCompatActivity {
+public class TScrollActivity extends BaseActivity {
     TextView t1,t2;
     Handler mHandler=new Handler();
     @Override

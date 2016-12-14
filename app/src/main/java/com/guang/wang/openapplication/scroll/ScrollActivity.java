@@ -1,24 +1,22 @@
 package com.guang.wang.openapplication.scroll;
 
+import com.guang.wang.openapplication.BaseActivity;
 import com.guang.wang.openapplication.R;
 import com.guang.wang.openapplication.scroll.overscrollview.OnMyScrollChangeListener;
 import com.guang.wang.openapplication.scroll.overscrollview.OverScrollView;
 
 import android.content.Intent;
 import android.graphics.Color;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
-public class ScrollActivity extends AppCompatActivity implements OnMyScrollChangeListener {
+public class ScrollActivity extends BaseActivity implements OnMyScrollChangeListener {
 
     private static final String TAG = ScrollActivity.class.getSimpleName();
 

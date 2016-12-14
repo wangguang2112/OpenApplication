@@ -1,5 +1,6 @@
 package com.guang.wang.openapplication.scroll;
 
+import com.guang.wang.openapplication.BaseActivity;
 import com.guang.wang.openapplication.R;
 import com.guang.wang.openapplication.scroll.other.EdgeView;
 
@@ -12,7 +13,7 @@ import android.widget.Toast;
 
 import java.lang.reflect.Field;
 
-public class ScrollOriginActivity extends AppCompatActivity {
+public class ScrollOriginActivity extends BaseActivity {
 
     private static final String TAG = ScrollOriginActivity.class.getSimpleName();
     Handler mHandler=new Handler();

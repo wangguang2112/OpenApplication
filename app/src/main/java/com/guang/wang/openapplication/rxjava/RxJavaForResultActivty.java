@@ -1,11 +1,12 @@
 package com.guang.wang.openapplication.rxjava;
 
+import com.guang.wang.openapplication.BaseActivity;
 import com.guang.wang.openapplication.R;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 
-public class RxJavaForResultActivty extends AppCompatActivity {
+public class RxJavaForResultActivty extends BaseActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

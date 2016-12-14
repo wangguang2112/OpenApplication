@@ -1,5 +1,6 @@
 package com.guang.wang.openapplication.okhttp;
 
+import com.guang.wang.openapplication.BaseActivity;
 import com.guang.wang.openapplication.R;
 
 import android.os.CountDownTimer;
@@ -22,7 +23,7 @@ import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.Response;
 
-public class OkhttpMainActivity extends AppCompatActivity {
+public class OkhttpMainActivity extends BaseActivity {
     EditText mEditText;
     OkHttpClient mOkHttpClient=new OkHttpClient();
     Request mRequest;

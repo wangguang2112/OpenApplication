@@ -1,5 +1,6 @@
 package com.guang.wang.openapplication.dialog;
 
+import com.guang.wang.openapplication.BaseActivity;
 import com.guang.wang.openapplication.R;
 
 import android.Manifest;
@@ -31,7 +32,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
-public class DialogActivity extends AppCompatActivity {
+public class DialogActivity extends BaseActivity {
 
     TextView tv;
 

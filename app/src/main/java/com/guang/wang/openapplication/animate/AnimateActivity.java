@@ -1,5 +1,6 @@
 package com.guang.wang.openapplication.animate;
 
+import com.guang.wang.openapplication.BaseActivity;
 import com.guang.wang.openapplication.R;
 
 import android.animation.TimeInterpolator;
@@ -18,7 +19,7 @@ import android.view.Window;
 import android.widget.TextView;
 import android.widget.Toast;
 
-public class AnimateActivity extends AppCompatActivity {
+public class AnimateActivity extends BaseActivity {
 
     TextView mTextView;
 

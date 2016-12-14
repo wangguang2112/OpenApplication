@@ -1,5 +1,6 @@
 package com.guang.wang.openapplication.rxjava;
 
+import com.guang.wang.openapplication.BaseActivity;
 import com.guang.wang.openapplication.R;
 import com.jakewharton.rxbinding.view.RxView;
 
@@ -19,7 +20,7 @@ import rx.functions.Action1;
 import rx.functions.Func1;
 import rx.schedulers.Schedulers;
 
-public class RxJavaActivity extends AppCompatActivity {
+public class RxJavaActivity extends BaseActivity {
     ActivityCallBakck callback;
     Button mButton;
     Button mJumpButton;

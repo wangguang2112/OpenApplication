@@ -1,5 +1,6 @@
 package com.guang.wang.openapplication.webview;
 
+import com.guang.wang.openapplication.BaseActivity;
 import com.guang.wang.openapplication.R;
 
 import android.support.v7.app.ActionBar;
@@ -11,7 +12,7 @@ import android.webkit.WebChromeClient;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
 
-public class WebViewActivity extends AppCompatActivity {
+public class WebViewActivity extends BaseActivity {
     WebView  mWebView;
     String TAG="WebViewActivity";
     @Override

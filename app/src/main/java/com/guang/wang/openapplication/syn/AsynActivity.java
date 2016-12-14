@@ -1,5 +1,6 @@
 package com.guang.wang.openapplication.syn;
 
+import com.guang.wang.openapplication.BaseActivity;
 import com.guang.wang.openapplication.R;
 import com.guang.wang.openapplication.rxjava.RxJavaActivity;
 
@@ -20,7 +21,7 @@ import android.widget.TextView;
 
 import java.util.List;
 
-public class AsynActivity extends AppCompatActivity {
+public class AsynActivity extends BaseActivity {
 
     TextView t;
    static  Handler mHandler= new Handler(){

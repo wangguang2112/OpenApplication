@@ -3,6 +3,7 @@ package com.guang.wang.openapplication;
 import com.guang.wang.openapplication.adapter.MainExListAdapter;
 import com.guang.wang.openapplication.animate.AnimateActivity;
 import com.guang.wang.openapplication.dialog.DialogActivity;
+import com.guang.wang.openapplication.imview.RefreshListViewActivity;
 import com.guang.wang.openapplication.okhttp.OkhttpMainActivity;
 import com.guang.wang.openapplication.rxjava.RxJavaActivity;
 import com.guang.wang.openapplication.scroll.DragHelperActivity;
@@ -47,7 +48,7 @@ import java.util.Arrays;
 import java.util.List;
 
 //自带生命周期测算
-public class MainActivity extends AppCompatActivity implements AdapterView.OnItemClickListener, ExpandableListView.OnGroupClickListener, ExpandableListView.OnChildClickListener {
+public class MainActivity extends BaseActivity implements AdapterView.OnItemClickListener, ExpandableListView.OnGroupClickListener, ExpandableListView.OnChildClickListener {
 
     private ExpandableListView mListView;
 
@@ -57,10 +58,10 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
 
     private List<List<String>> mChildName;
 
-    private String[] texts = new String[]{"应用程序", "okhttp", "rxjava", "asyn", "dialog", "web", "scroll", "Tscroll", "Scroller", "DragHelper", "Nested"};
+    private String[] texts = new String[]{"应用程序", "okhttp", "rxjava", "asyn", "dialog", "web", "scroll", "Tscroll", "Scroller", "DragHelper", "Nested","IMView"};
 
     private Class<? extends Activity>[] mActivities = new Class[]{null, OkhttpMainActivity.class, RxJavaActivity.class, AsynActivity.class, DialogActivity.class, WebViewActivity.class,
-            ScrollActivity.class, TScrollActivity.class, ScrollerActivity.class, DragHelperActivity.class, NestedScrollActivity.class, AnimateActivity.class};
+            ScrollActivity.class, TScrollActivity.class, ScrollerActivity.class, DragHelperActivity.class, NestedScrollActivity.class, AnimateActivity.class, RefreshListViewActivity.class};
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -103,7 +104,7 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
     }
 
     private void initAdapterData() {
-        mGroupName= Arrays.asList("应用程序", "okhttp", "rxjava", "asyn", "dialog", "web", "scroll","animate");
+        mGroupName= Arrays.asList("应用程序", "okhttp", "rxjava", "asyn", "dialog", "web", "scroll","animate","imView");
         mChildName=new ArrayList<>();
         mChildName.add(Arrays.asList("应用程序"));
         mChildName.add(Arrays.asList("okhttp"));
@@ -113,6 +114,7 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
         mChildName.add(Arrays.asList("web"));
         mChildName.add(Arrays.asList("scroll", "Tscroll", "Scroller", "DragHelper", "Nested"));
         mChildName.add(Arrays.asList("animate"));
+        mChildName.add(Arrays.asList("RefreshListView"));
         adapter=new MainExListAdapter(this,mGroupName,mChildName);
     }
     @Override
