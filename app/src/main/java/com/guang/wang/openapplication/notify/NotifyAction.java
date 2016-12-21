@@ -9,3 +9,4 @@ package com.guang.wang.openapplication.notify;
 public class NotifyAction {
     public static final String NOTIFY_ACTION_TEST="notify_action_test";
 }
+

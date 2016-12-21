@@ -13,13 +13,14 @@ public class EmptyActivity extends BaseActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_empty);
-        runOnUiThread(new Runnable() {
+        getMainHandler().postDelayed(new Runnable() {
             @Override
             public void run() {
-                Intent intent=new Intent();
-                intent.putExtra("text","456");
-                Notify.getInstance().notify(NotifyAction.NOTIFY_ACTION_TEST,intent);
+                Intent intent = new Intent();
+                intent.putExtra("text", "456");
+                Notify.getInstance()
+                      .notify(NotifyAction.NOTIFY_ACTION_TEST, intent);
             }
-        });
+        }, 5000);
     }
 }

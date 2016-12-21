@@ -18,7 +18,11 @@ public class NotifyActivity extends BaseActivity implements NotifyCallBack{
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_notify);
         mTextView= (TextView) findViewById(R.id.notifytext);
-        mTextView.setText("123");
+        if(savedInstanceState!=null) {
+            mTextView.setText(savedInstanceState.getCharSequence("text", "123"));
+        }else {
+            mTextView.setText("123");
+        }
         mTextView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -27,6 +31,12 @@ public class NotifyActivity extends BaseActivity implements NotifyCallBack{
             }
         });
         Notify.getInstance().rigisterCallBack(NotifyAction.NOTIFY_ACTION_TEST,this);
+    }
+
+    @Override
+    protected void onSaveInstanceState(Bundle outState) {
+        outState.putCharSequence("text", mTextView.getText());
+        super.onSaveInstanceState(outState);
     }
 
     @Override

@@ -59,6 +59,8 @@
         </activity>
         <activity android:name=".BaseActivity">
         </activity>
+        <activity android:name=".webview.PagerWebViewActivity">
+        </activity>
     </application>
 
 </manifest>

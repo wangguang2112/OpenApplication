@@ -4,6 +4,7 @@ import com.guang.wang.openapplication.adapter.MainExListAdapter;
 import com.guang.wang.openapplication.animate.AnimateActivity;
 import com.guang.wang.openapplication.dialog.DialogActivity;
 import com.guang.wang.openapplication.imview.RefreshListViewActivity;
+import com.guang.wang.openapplication.notify.NotifyActivity;
 import com.guang.wang.openapplication.okhttp.OkhttpMainActivity;
 import com.guang.wang.openapplication.rxjava.RxJavaActivity;
 import com.guang.wang.openapplication.scroll.DragHelperActivity;
@@ -12,6 +13,7 @@ import com.guang.wang.openapplication.scroll.ScrollActivity;
 import com.guang.wang.openapplication.scroll.ScrollerActivity;
 import com.guang.wang.openapplication.scroll.TScrollActivity;
 import com.guang.wang.openapplication.syn.AsynActivity;
+import com.guang.wang.openapplication.webview.PagerWebViewActivity;
 import com.guang.wang.openapplication.webview.WebViewActivity;
 
 import android.Manifest;
@@ -58,10 +60,11 @@ public class MainActivity extends BaseActivity implements AdapterView.OnItemClic
 
     private List<List<String>> mChildName;
 
-    private String[] texts = new String[]{"应用程序", "okhttp", "rxjava", "asyn", "dialog", "web", "scroll", "Tscroll", "Scroller", "DragHelper", "Nested","IMView"};
+    private String[] texts = new String[]{"应用程序", "okhttp", "rxjava", "asyn", "dialog", "web", "scroll", "Tscroll", "Scroller", "DragHelper", "Nested", "IMView"};
 
     private Class<? extends Activity>[] mActivities = new Class[]{null, OkhttpMainActivity.class, RxJavaActivity.class, AsynActivity.class, DialogActivity.class, WebViewActivity.class,
-            ScrollActivity.class, TScrollActivity.class, ScrollerActivity.class, DragHelperActivity.class, NestedScrollActivity.class, AnimateActivity.class, RefreshListViewActivity.class};
+            PagerWebViewActivity.class, ScrollActivity.class, TScrollActivity.class, ScrollerActivity.class, DragHelperActivity.class, NestedScrollActivity.class, AnimateActivity.class,
+            RefreshListViewActivity.class, NotifyActivity.class};
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -87,12 +90,13 @@ public class MainActivity extends BaseActivity implements AdapterView.OnItemClic
             Intent intent = new Intent(Intent.ACTION_CALL);
             intent.setData(Uri.parse("tel:15810826527"));
             if (ActivityCompat.checkSelfPermission(this, Manifest.permission.CALL_PHONE) != PackageManager.PERMISSION_GRANTED) {
-                Toast.makeText(this,"未分配打电话权限",Toast.LENGTH_SHORT).show();
+                Toast.makeText(this, "未分配打电话权限", Toast.LENGTH_SHORT)
+                     .show();
                 return false;
             }
             startActivity(intent);
             return true;
-        }else{
+        } else {
             return super.onContextItemSelected(item);
         }
     }
@@ -104,19 +108,21 @@ public class MainActivity extends BaseActivity implements AdapterView.OnItemClic
     }
 
     private void initAdapterData() {
-        mGroupName= Arrays.asList("应用程序", "okhttp", "rxjava", "asyn", "dialog", "web", "scroll","animate","imView");
-        mChildName=new ArrayList<>();
+        mGroupName = Arrays.asList("应用程序", "okhttp", "rxjava", "asyn", "dialog", "web", "scroll", "animate", "imView", "nofity");
+        mChildName = new ArrayList<>();
         mChildName.add(Arrays.asList("应用程序"));
         mChildName.add(Arrays.asList("okhttp"));
         mChildName.add(Arrays.asList("rxjava"));
         mChildName.add(Arrays.asList("asyn"));
         mChildName.add(Arrays.asList("dialog"));
-        mChildName.add(Arrays.asList("web"));
+        mChildName.add(Arrays.asList("web", "webpager"));
         mChildName.add(Arrays.asList("scroll", "Tscroll", "Scroller", "DragHelper", "Nested"));
         mChildName.add(Arrays.asList("animate"));
         mChildName.add(Arrays.asList("RefreshListView"));
-        adapter=new MainExListAdapter(this,mGroupName,mChildName);
+        mChildName.add(Arrays.asList("nofity"));
+        adapter = new MainExListAdapter(this, mGroupName, mChildName);
     }
+
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 
@@ -124,51 +130,56 @@ public class MainActivity extends BaseActivity implements AdapterView.OnItemClic
 
     @Override
     public boolean onGroupClick(ExpandableListView parent, View v, int groupPosition, long id) {
-        int size=mChildName.get(groupPosition).size();
-        if(size==1){
-            if(groupPosition==0){
+        int size = mChildName.get(groupPosition)
+                             .size();
+        if (size == 1) {
+            if (groupPosition == 0) {
                 String action = Settings.ACTION_APPLICATION_DETAILS_SETTINGS;
                 Intent intent = new Intent(action);
-                intent.setData(Uri.fromParts("package","com.wuba.bangjob",null));
+                intent.setData(Uri.fromParts("package", "com.wuba.bangjob", null));
                 try {
                     getPackageManager().getPackageInfo("com.wuba.bangjob", PackageManager.GET_ACTIVITIES);
                 } catch (PackageManager.NameNotFoundException e) {
-                    Toast.makeText(MainActivity.this,"未安装该APP!",Toast.LENGTH_SHORT).show();
+                    Toast.makeText(MainActivity.this, "未安装该APP!", Toast.LENGTH_SHORT)
+                         .show();
                 }
                 startActivity(intent);
                 finish();
-            }else{
+            } else {
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-                    startActivity(new Intent(this,mActivities[culAllSize(mChildName,groupPosition)]), ActivityOptions.makeSceneTransitionAnimation(this).toBundle());
-                }else{
-                    startActivity(new Intent(this,mActivities[culAllSize(mChildName,groupPosition)]));
+                    startActivity(new Intent(this, mActivities[culAllSize(mChildName, groupPosition)]), ActivityOptions.makeSceneTransitionAnimation(this)
+                                                                                                                       .toBundle());
+                } else {
+                    startActivity(new Intent(this, mActivities[culAllSize(mChildName, groupPosition)]));
                 }
             }
             return true;
-        }else{
+        } else {
             return false;
         }
 
     }
 
-    private int culAllSize(List<List<String>> lists,int position){
-        if(position==0){
+    private int culAllSize(List<List<String>> lists, int position) {
+        if (position == 0) {
             return 0;
-        }else {
+        } else {
             int sum = 0;
             for (int i = 0; i < position; i++) {
                 List list = lists.get(i);
-                sum +=list.size();
+                sum += list.size();
             }
             return sum;
         }
     }
+
     @Override
     public boolean onChildClick(ExpandableListView parent, View v, int groupPosition, int childPosition, long id) {
-        if(mChildName.get(groupPosition).size()!=1){
-            startActivity(new Intent(this,mActivities[culAllSize(mChildName,groupPosition)+childPosition]));
+        if (mChildName.get(groupPosition)
+                      .size() != 1) {
+            startActivity(new Intent(this, mActivities[culAllSize(mChildName, groupPosition) + childPosition]));
             return true;
-        }else {
+        } else {
             return false;
         }
     }
