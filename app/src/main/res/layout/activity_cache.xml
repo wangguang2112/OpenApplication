@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/activity_cache"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.guang.wang.openapplication.cache.OOMActivity">
+    <ImageView
+        android:id="@+id/my_image"
+        android:layout_width="match_parent"
+        android:scaleType="matrix"
+        android:layout_height="400dp"/>
+    <Button
+        android:id="@+id/next"
+        android:layout_width="wrap_content"
+        android:layout_below="@id/my_image"
+        android:layout_centerHorizontal="true"
+        android:text="next"
+        android:layout_height="wrap_content"/>
+    <Button
+        android:id="@+id/start"
+        android:layout_width="wrap_content"
+        android:text="stop"
+        android:layout_below="@id/next"
+        android:layout_centerHorizontal="true"
+        android:layout_height="wrap_content"/>
+    <Button
+        android:id="@+id/clear"
+        android:layout_width="wrap_content"
+        android:text="stop"
+        android:layout_below="@id/start"
+        android:layout_centerHorizontal="true"
+        android:layout_height="wrap_content"/>
+</RelativeLayout>

@@ -61,6 +61,20 @@
         </activity>
         <activity android:name=".webview.PagerWebViewActivity">
         </activity>
+        <activity android:name=".scroll.GustureActivity">
+        </activity>
+        <activity android:name=".cache.OOMActivity">
+        </activity>
+        <activity android:name=".cache.DiskCacheActivity">
+        </activity>
+        <activity android:name=".cache.LruCacheActivity">
+        </activity>
+        <activity android:name=".db.LevelDbActivity">
+        </activity>
+        <activity android:name=".okhttp.HttpUrlCActivity">
+        </activity>
+        <activity android:name=".encrypt.EncryptActivity">
+        </activity>
     </application>
 
 </manifest>

@@ -15,17 +15,24 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.io.File;
 import java.io.IOException;
 
+import okhttp3.Cache;
+import okhttp3.CacheControl;
 import okhttp3.Call;
 import okhttp3.Callback;
+import okhttp3.Interceptor;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.Response;
 
 public class OkhttpMainActivity extends BaseActivity {
+
+    private static final String TAG ="OkhttpMainActivity" ;
+
     EditText mEditText;
-    OkHttpClient mOkHttpClient=new OkHttpClient();
+    OkHttpClient mOkHttpClient;
     Request mRequest;
     TextView mTextView;
     TextView mTimer;
@@ -47,6 +54,15 @@ public class OkhttpMainActivity extends BaseActivity {
         mEditText.setText("http://wangguang2112.github.io/operate.xml");
         mTextView= (TextView) findViewById(R.id.ok_result_text);
         mTimer= (TextView) findViewById(R.id.timer);
+        OkHttpClient.Builder b=new OkHttpClient.Builder();
+        Cache cache=new Cache(new File(getExternalCacheDir(),"webcache"),1024*1024*50);
+        b.cache(cache);
+        b.interceptors().add(LoggingInterceptor);
+        b.networkInterceptors().add(REWRITE_CACHE_INTERCEPTOR);
+        b.interceptors().add(REWRITE_CACHE_INTERCEPTOR);
+        mOkHttpClient=b.build();
+
+
     }
 
     @Override
@@ -74,7 +90,9 @@ public class OkhttpMainActivity extends BaseActivity {
                 Toast.makeText(this,"url error",Toast.LENGTH_SHORT).show();
                 return;
             }
+
             Call call = mOkHttpClient.newCall(mRequest);
+
             call.enqueue(new Callback() {
                 @Override
                 public void onFailure(Call call, IOException e) {
@@ -106,7 +124,7 @@ public class OkhttpMainActivity extends BaseActivity {
     void postclick(View view){
 
     }
-    CountDownTimer timer=new CountDownTimer(1000*10,1000) {
+    CountDownTimer timer=new CountDownTimer(1000*3,1000) {
         @Override
         public void onTick(long millisUntilFinished) {
             mTimer.setText(String.valueOf(millisUntilFinished/1000));
@@ -115,6 +133,41 @@ public class OkhttpMainActivity extends BaseActivity {
         @Override
         public void onFinish() {
             mTimer.setVisibility(View.GONE);
+        }
+    };
+
+    /**
+     * 云端响应头拦截器，用来配置缓存策略
+     */
+    private final Interceptor REWRITE_CACHE_INTERCEPTOR = new Interceptor() {
+        @Override
+        public Response intercept(Chain chain) throws IOException {
+            Request request = chain.request();
+            request = request.newBuilder()
+                             .cacheControl(CacheControl.FORCE_CACHE)
+                             .build();
+            Response originalResponse = chain.proceed(request);
+            String cacheControl = request.cacheControl()
+                                         .toString();
+            return originalResponse.newBuilder()
+                                   .header("Cache-Control", cacheControl)
+                                   .removeHeader("Pragma")
+                                   .build();
+        }
+
+    };
+
+    private final Interceptor LoggingInterceptor = new Interceptor() {
+        @Override
+        public Response intercept(Chain chain) throws IOException {
+            Request request = chain.request();
+            long t1 = System.nanoTime();
+            Log.i(TAG, String.format("Sending request %s on %s%n%s", request.url(), chain.connection(), request.headers()));
+            Response response = chain.proceed(request);
+            long t2 = System.nanoTime();
+            Log.i(TAG, String.format("Received response for %s in %.1fms%n%s", response.request()
+                                                                                       .url(), (t2 - t1) / 1e6d, response.headers()));
+            return response;
         }
     };
 }

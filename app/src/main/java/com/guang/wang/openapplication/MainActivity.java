@@ -2,12 +2,19 @@ package com.guang.wang.openapplication;
 
 import com.guang.wang.openapplication.adapter.MainExListAdapter;
 import com.guang.wang.openapplication.animate.AnimateActivity;
+import com.guang.wang.openapplication.cache.DiskCacheActivity;
+import com.guang.wang.openapplication.cache.LruCacheActivity;
+import com.guang.wang.openapplication.cache.OOMActivity;
+import com.guang.wang.openapplication.db.LevelDbActivity;
 import com.guang.wang.openapplication.dialog.DialogActivity;
+import com.guang.wang.openapplication.encrypt.EncryptActivity;
 import com.guang.wang.openapplication.imview.RefreshListViewActivity;
 import com.guang.wang.openapplication.notify.NotifyActivity;
+import com.guang.wang.openapplication.okhttp.HttpUrlCActivity;
 import com.guang.wang.openapplication.okhttp.OkhttpMainActivity;
 import com.guang.wang.openapplication.rxjava.RxJavaActivity;
 import com.guang.wang.openapplication.scroll.DragHelperActivity;
+import com.guang.wang.openapplication.scroll.GustureActivity;
 import com.guang.wang.openapplication.scroll.NestedScrollActivity;
 import com.guang.wang.openapplication.scroll.ScrollActivity;
 import com.guang.wang.openapplication.scroll.ScrollerActivity;
@@ -28,9 +35,7 @@ import android.os.Bundle;
 import android.provider.Settings;
 import android.support.annotation.Nullable;
 import android.support.v4.app.ActivityCompat;
-import android.support.v4.app.ActivityOptionsCompat;
 import android.support.v4.app.Fragment;
-import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.ContextMenu;
 import android.view.LayoutInflater;
@@ -38,11 +43,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
-import android.widget.ExpandableListAdapter;
 import android.widget.ExpandableListView;
-import android.widget.ListView;
-import android.widget.SimpleExpandableListAdapter;
 import android.widget.Toast;
 
 import java.util.ArrayList;
@@ -60,11 +61,9 @@ public class MainActivity extends BaseActivity implements AdapterView.OnItemClic
 
     private List<List<String>> mChildName;
 
-    private String[] texts = new String[]{"应用程序", "okhttp", "rxjava", "asyn", "dialog", "web", "scroll", "Tscroll", "Scroller", "DragHelper", "Nested", "IMView"};
-
-    private Class<? extends Activity>[] mActivities = new Class[]{null, OkhttpMainActivity.class, RxJavaActivity.class, AsynActivity.class, DialogActivity.class, WebViewActivity.class,
-            PagerWebViewActivity.class, ScrollActivity.class, TScrollActivity.class, ScrollerActivity.class, DragHelperActivity.class, NestedScrollActivity.class, AnimateActivity.class,
-            RefreshListViewActivity.class, NotifyActivity.class};
+    private Class<? extends Activity>[] mActivities = new Class[]{null, OkhttpMainActivity.class, HttpUrlCActivity.class, RxJavaActivity.class, AsynActivity.class, DialogActivity.class, WebViewActivity.class,
+            PagerWebViewActivity.class, ScrollActivity.class, TScrollActivity.class, ScrollerActivity.class, DragHelperActivity.class, NestedScrollActivity.class,GustureActivity.class, AnimateActivity.class,
+            RefreshListViewActivity.class, NotifyActivity.class, OOMActivity.class, LruCacheActivity.class, DiskCacheActivity.class, LevelDbActivity.class, EncryptActivity.class};
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -108,18 +107,21 @@ public class MainActivity extends BaseActivity implements AdapterView.OnItemClic
     }
 
     private void initAdapterData() {
-        mGroupName = Arrays.asList("应用程序", "okhttp", "rxjava", "asyn", "dialog", "web", "scroll", "animate", "imView", "nofity");
+        mGroupName = Arrays.asList("应用程序", "okhttp", "rxjava", "asyn", "dialog", "web", "scroll", "animate", "imView","notify", "cache","db","encrypt");
         mChildName = new ArrayList<>();
         mChildName.add(Arrays.asList("应用程序"));
-        mChildName.add(Arrays.asList("okhttp"));
+        mChildName.add(Arrays.asList("okhttp","httpurl"));
         mChildName.add(Arrays.asList("rxjava"));
         mChildName.add(Arrays.asList("asyn"));
         mChildName.add(Arrays.asList("dialog"));
         mChildName.add(Arrays.asList("web", "webpager"));
-        mChildName.add(Arrays.asList("scroll", "Tscroll", "Scroller", "DragHelper", "Nested"));
+        mChildName.add(Arrays.asList("scroll", "Tscroll", "Scroller", "DragHelper", "Nested","Gesture"));
         mChildName.add(Arrays.asList("animate"));
         mChildName.add(Arrays.asList("RefreshListView"));
         mChildName.add(Arrays.asList("nofity"));
+        mChildName.add(Arrays.asList("oom","lru","disklru"));
+        mChildName.add(Arrays.asList("levelDB"));
+        mChildName.add(Arrays.asList("encrypt"));
         adapter = new MainExListAdapter(this, mGroupName, mChildName);
     }
 
