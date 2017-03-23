@@ -1,0 +1,8 @@
+com.annotation.processor.AutonSetProcessor
+com.annotation.processor.ClassProcessor
+com.annotation.processor.FieldProcessor
+com.annotation.processor.LocalProcessor
+com.annotation.processor.MethodProcessor
+com.annotation.processor.PackProcessor
+com.annotation.processor.ConsProcessor
+com.annotation.processor.ParamProcessor

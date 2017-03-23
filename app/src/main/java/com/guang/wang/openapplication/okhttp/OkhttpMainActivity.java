@@ -3,6 +3,8 @@ package com.guang.wang.openapplication.okhttp;
 import com.guang.wang.openapplication.BaseActivity;
 import com.guang.wang.openapplication.R;
 
+import android.content.Intent;
+import android.net.Uri;
 import android.os.CountDownTimer;
 import android.os.Handler;
 import android.os.Message;
@@ -82,7 +84,12 @@ public class OkhttpMainActivity extends BaseActivity {
         mTimer.setVisibility(View.VISIBLE);
         String url=mEditText.getText().toString();
         if(!url.equals("")) {
-
+            if(url.startsWith("bangjob")){
+                Intent intent=new Intent(Intent.ACTION_VIEW);
+                intent.setData(Uri.parse(url));
+                startActivity(intent);
+                return;
+            }
             try {
                 mRequest = new Request.Builder().url(url).build();
             } catch (Exception e) {

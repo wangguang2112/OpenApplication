@@ -9,8 +9,11 @@
         <option name="modules">
           <set>
             <option value="$PROJECT_DIR$" />
+            <option value="$PROJECT_DIR$/AutoVo" />
             <option value="$PROJECT_DIR$/New_UIComponents" />
             <option value="$PROJECT_DIR$/app" />
+            <option value="$PROJECT_DIR$/autovocompiler" />
+            <option value="$PROJECT_DIR$/setannotation" />
           </set>
         </option>
         <option name="resolveModulePerSourceSet" value="false" />

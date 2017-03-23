@@ -8,7 +8,6 @@ import com.facebook.crypto.Entity;
 import com.facebook.crypto.exception.CryptoInitializationException;
 import com.facebook.crypto.exception.KeyChainException;
 import com.facebook.crypto.keychain.KeyChain;
-import com.wuba.bangbang.uicomponents.pictureediter.cropwindow.handle.Handle;
 
 import android.content.Context;
 import android.os.Handler;
@@ -18,7 +17,6 @@ import android.util.Log;
 import java.io.BufferedOutputStream;
 import java.io.File;
 import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
