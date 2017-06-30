@@ -3,9 +3,8 @@
   <component name="GradleSettings">
     <option name="linkedExternalProjectsSettings">
       <GradleProjectSettings>
-        <option name="distributionType" value="LOCAL" />
+        <option name="distributionType" value="DEFAULT_WRAPPED" />
         <option name="externalProjectPath" value="$PROJECT_DIR$" />
-        <option name="gradleHome" value="C:\Program Files\Android\Android Studio\gradle\gradle-2.14.1" />
         <option name="modules">
           <set>
             <option value="$PROJECT_DIR$" />
@@ -13,7 +12,8 @@
             <option value="$PROJECT_DIR$/New_UIComponents" />
             <option value="$PROJECT_DIR$/app" />
             <option value="$PROJECT_DIR$/autovocompiler" />
-            <option value="$PROJECT_DIR$/setannotation" />
+            <option value="$PROJECT_DIR$/gradleplugin" />
+            <option value="$PROJECT_DIR$/parsearsc" />
           </set>
         </option>
         <option name="resolveModulePerSourceSet" value="false" />

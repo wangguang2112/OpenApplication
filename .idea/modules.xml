@@ -7,7 +7,8 @@
       <module fileurl="file://$PROJECT_DIR$/OpenApplication.iml" filepath="$PROJECT_DIR$/OpenApplication.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
       <module fileurl="file://$PROJECT_DIR$/autovocompiler/autovocompiler.iml" filepath="$PROJECT_DIR$/autovocompiler/autovocompiler.iml" />
-      <module fileurl="file://$PROJECT_DIR$/setannotation/setannotation.iml" filepath="$PROJECT_DIR$/setannotation/setannotation.iml" />
+      <module fileurl="file://$PROJECT_DIR$/gradleplugin/gradleplugin.iml" filepath="$PROJECT_DIR$/gradleplugin/gradleplugin.iml" />
+      <module fileurl="file://$PROJECT_DIR$/parsearsc/parsearsc.iml" filepath="$PROJECT_DIR$/parsearsc/parsearsc.iml" />
     </modules>
   </component>
 </project>

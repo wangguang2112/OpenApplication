@@ -1,6 +1,7 @@
 package com.guang.wang.openapplication.okhttp;
 
 import com.guang.wang.openapplication.BaseActivity;
+import com.guang.wang.openapplication.BuildConfig;
 import com.guang.wang.openapplication.R;
 
 import android.content.Intent;

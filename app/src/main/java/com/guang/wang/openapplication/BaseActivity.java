@@ -7,6 +7,7 @@ import android.os.PersistableBundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -68,5 +69,8 @@ public class BaseActivity extends AppCompatActivity {
             mDialog.dismiss();
         }
 
+    }
+    protected void showMsg(String msg){
+        Toast.makeText(this,msg,Toast.LENGTH_SHORT);
     }
 }

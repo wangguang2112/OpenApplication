@@ -10,6 +10,6 @@
         android:layout_width="300dp"
         android:transitionName="transition"
         android:layout_centerInParent="true"
-        android:background="@color/color1"
+        android:background="@color/color3"
         android:layout_height="300dp"/>
 </RelativeLayout>

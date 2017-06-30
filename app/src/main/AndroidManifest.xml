@@ -77,6 +77,8 @@
         </activity>
         <activity android:name=".annotation.AnnotaActivity">
         </activity>
+        <activity android:name=".puglin.LoadActivity">
+        </activity>
     </application>
 
 </manifest>

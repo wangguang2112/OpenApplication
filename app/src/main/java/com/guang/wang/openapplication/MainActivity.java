@@ -13,6 +13,7 @@ import com.guang.wang.openapplication.imview.RefreshListViewActivity;
 import com.guang.wang.openapplication.notify.NotifyActivity;
 import com.guang.wang.openapplication.okhttp.HttpUrlCActivity;
 import com.guang.wang.openapplication.okhttp.OkhttpMainActivity;
+import com.guang.wang.openapplication.puglin.LoadActivity;
 import com.guang.wang.openapplication.rxjava.RxJavaActivity;
 import com.guang.wang.openapplication.scroll.DragHelperActivity;
 import com.guang.wang.openapplication.scroll.GustureActivity;
@@ -63,7 +64,8 @@ public class MainActivity extends BaseActivity implements AdapterView.OnItemClic
     private List<List<String>> mChildName;
     private Class<? extends Activity>[] mActivities = new Class[]{null, OkhttpMainActivity.class, HttpUrlCActivity.class, RxJavaActivity.class, AsynActivity.class, DialogActivity.class, WebViewActivity.class,
             PagerWebViewActivity.class, ScrollActivity.class, TScrollActivity.class, ScrollerActivity.class, DragHelperActivity.class, NestedScrollActivity.class,GustureActivity.class, AnimateActivity.class,
-            RefreshListViewActivity.class, NotifyActivity.class, OOMActivity.class, LruCacheActivity.class, DiskCacheActivity.class, LevelDbActivity.class, EncryptActivity.class, AnnotaActivity.class};
+            RefreshListViewActivity.class, NotifyActivity.class, OOMActivity.class, LruCacheActivity.class, DiskCacheActivity.class, LevelDbActivity.class, EncryptActivity.class, AnnotaActivity.class,
+            LoadActivity.class};
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -108,7 +110,7 @@ public class MainActivity extends BaseActivity implements AdapterView.OnItemClic
     }
 
     private void initAdapterData() {
-        mGroupName = Arrays.asList("应用程序", "okhttp", "rxjava", "asyn", "dialog", "web", "scroll", "animate", "imView","notify", "cache","db","encrypt","Annotation");
+        mGroupName = Arrays.asList("应用程序", "okhttp", "rxjava", "asyn", "dialog", "web", "scroll", "animate", "imView","notify", "cache","db","encrypt","Annotation","PLUGIN");
         mChildName = new ArrayList<>();
         mChildName.add(Arrays.asList("应用程序"));
         mChildName.add(Arrays.asList("okhttp","httpurl"));
@@ -124,6 +126,7 @@ public class MainActivity extends BaseActivity implements AdapterView.OnItemClic
         mChildName.add(Arrays.asList("levelDB"));
         mChildName.add(Arrays.asList("encrypt"));
         mChildName.add(Arrays.asList("annotation"));
+        mChildName.add(Arrays.asList("puglin"));
         adapter = new MainExListAdapter(this, mGroupName, mChildName);
     }
 
@@ -288,6 +291,7 @@ public class MainActivity extends BaseActivity implements AdapterView.OnItemClic
     protected void onPause() {
         super.onPause();
         Log.d("wangguang", "Activty::onPause");
+        showMsg(BuildConfig.BUILD_TYPE);
     }
 
     @Override

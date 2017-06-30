@@ -35,6 +35,12 @@ public class GustureView extends View {
         init();
     }
 
+    @Override
+    protected void onFinishInflate() {
+        super.onFinishInflate();
+        Log.d("wangguang","GustureView onFinishInflate");
+    }
+
     private void init() {
         Log.d(TAG, "onTouchEvent: init");
         mDetector=new GestureDetector(getContext(),new GestureDetector.SimpleOnGestureListener() {
