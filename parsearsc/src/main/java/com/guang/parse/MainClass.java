@@ -1,5 +1,6 @@
 package com.guang.parse;
 
+import com.guang.parse.type.ResPackageChunk;
 import com.guang.parse.type.ResStringPoolChunk;
 import com.guang.parse.type.ResTableHeader;
 
@@ -22,5 +23,11 @@ public class MainClass {
         ResStringPoolChunk stringChunk=ParserUtils.parseStringPoolChunk(srcByte,header.getHeaderSize());
         System.out.println("");
         System.out.println("********************************************");
+        ResPackageChunk packageChunk = ParserUtils.parsePackageChunk(srcByte, header.getHeaderSize() + stringChunk.header.header.size);
+
+
+        System.out.println("");
+        System.out.println("********************************************");
+
     }
 }

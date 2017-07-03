@@ -10,9 +10,9 @@ public class ResPackageChunk implements IChunk {
 
     public ResPackageHeader header = new ResPackageHeader();
 
-    public ResString[] resTypeStrings;
+    public ResStringPoolChunk resTypeStrings;
 
-    public ResString[] resNameStrings;
+    public ResStringPoolChunk resNameStrings;
 
 
 }

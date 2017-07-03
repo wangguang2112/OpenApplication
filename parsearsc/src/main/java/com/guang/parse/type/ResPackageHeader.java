@@ -1,7 +1,5 @@
 package com.guang.parse.type;
 
-import java.util.Arrays;
-
 /**
  * Created by wangguang.
  * Date:2017/6/28
@@ -20,7 +18,7 @@ public class ResPackageHeader implements IChunkHeader {
     /**
      * 256位 16行
      */
-    public char[] name=new char[128];
+    public String name;
 
     public int typeStrings;
 
@@ -36,7 +34,7 @@ public class ResPackageHeader implements IChunkHeader {
         return "ResPackageHeader{" +
                 "header=" + header +
                 ", id=" + id +
-                ", name=" + Arrays.toString(name) +
+                ", name=" + name +
                 ", typeStrings=" + typeStrings +
                 ", lastPublicType=" + lastPublicType +
                 ", keyStrings=" + keyStrings +

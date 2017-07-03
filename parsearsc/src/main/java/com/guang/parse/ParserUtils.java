@@ -16,6 +16,7 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
+import java.lang.reflect.Array;
 import java.util.Arrays;
 
 /**
@@ -33,6 +34,8 @@ public class ParserUtils {
     public static int SHORT_BYTE_COUNT = 2;
 
     public static int BYTE_COUNT = 1;
+
+    public static int PACKAGE_NAME_BYTE_COUNT=256;
 
     /**
      * 读取文件
@@ -99,20 +102,26 @@ public class ParserUtils {
         return header;
     }
 
-    public static ResPackageChunk parsePackageChunk(byte[] data, int offset){
-        ResPackageChunk packageChunk=new ResPackageChunk();
-        packageChunk.header=parsePackageHeader(data,offset);
+    public static ResPackageChunk parsePackageChunk(byte[] data, int offset) {
+        ResPackageChunk packageChunk = new ResPackageChunk();
+        packageChunk.header = parsePackageHeader(data, offset);
+        packageChunk.resTypeStrings=parseStringPoolChunk(data,offset+packageChunk.header.typeStrings);
+        packageChunk.resNameStrings=parseStringPoolChunk(data,offset+packageChunk.header.keyStrings);
         //TODO parse String
-//        packageChunk.resTypeStrings=parseStringPool(data,offset+packageChunk.header.getHeaderSize());
         return packageChunk;
     }
-    public static ResPackageHeader parsePackageHeader(byte[] data, int offset){
-        ResPackageHeader header=new ResPackageHeader();
 
+    public static ResPackageHeader parsePackageHeader(byte[] data, int offset) {
+        ResPackageHeader header = new ResPackageHeader();
+        header.header = parseResChunkHeader(data, offset);
+        header.id = byte2Int(data, offset + header.header.getHeaderSize());
+        header.name = parseUTF8String(data, offset + header.header.getHeaderSize() + INT_BYTE_COUNT, PACKAGE_NAME_BYTE_COUNT);
+        header.typeStrings = byte2Int(data, offset + header.header.getHeaderSize() + INT_BYTE_COUNT + PACKAGE_NAME_BYTE_COUNT);
+        header.lastPublicType = byte2Int(data, offset + header.header.getHeaderSize() + INT_BYTE_COUNT + PACKAGE_NAME_BYTE_COUNT + INT_BYTE_COUNT);
+        header.keyStrings = byte2Int(data, offset + header.header.getHeaderSize() + INT_BYTE_COUNT + PACKAGE_NAME_BYTE_COUNT + INT_BYTE_COUNT + INT_BYTE_COUNT);
+        header.lastPublicKey = byte2Int(data, offset + header.header.getHeaderSize() + INT_BYTE_COUNT + PACKAGE_NAME_BYTE_COUNT + INT_BYTE_COUNT + INT_BYTE_COUNT + INT_BYTE_COUNT);
         return header;
     }
-
-
 
 
     public static ResStringPoolRef[] parseStringPoolRef(byte[] data, int start, int count) {
@@ -142,6 +151,24 @@ public class ParserUtils {
             e.printStackTrace();
         }
         return string;
+    }
+
+    public static String parseUTF8String(byte[] data, int start, int maxLen) {
+        char lastChar = '\n';
+        int nowPosition = 0;
+        while (lastChar != 0 && nowPosition < maxLen) {
+            lastChar = (char) byte2Short(data, start + nowPosition);
+            nowPosition += 2;
+        }
+        if (nowPosition == 0) {
+            return "";
+        }
+        byte[] byteArray = Arrays.copyOfRange(data, start, start + nowPosition-2);
+        char[] charArray = new char[byteArray.length / 2];
+        for (int i = 0; i < nowPosition-2; i += 2) {
+            charArray[i/2] = (char) byte2Short(byteArray, i);
+        }
+        return new String(charArray);
     }
 
     public static ResChunkHeader parseResChunkHeader(byte[] data, int offset) {
