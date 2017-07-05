@@ -1,5 +1,7 @@
 package com.guang.parse.type;
 
+import com.guang.parse.ParserUtils;
+
 /**
  * Created by wangguang.
  * Date:2017/6/28
@@ -67,13 +69,13 @@ public class ResValue implements IChunkBody {
 
 
 
-    short size;
+    public short size;
 
-    byte res0;
+    public byte res0;
 
-    byte dataType;
+    public byte dataType;
 
-    int data;
+    public int data;
 
 
     public String getTypeStr() {
@@ -110,9 +112,9 @@ public class ResValue implements IChunkBody {
         return "";
     }
 
-    public String getDataStr() {
+    public String getDataStr(ResStringPoolChunk string) {
         if (dataType == TYPE_STRING) {
-//            return ParseResourceUtils.getResString(data);
+            return string.strings[data].str;
         }
         if (dataType == TYPE_ATTRIBUTE) {
             return String.format("?%s%08X",getPackage(data),data);

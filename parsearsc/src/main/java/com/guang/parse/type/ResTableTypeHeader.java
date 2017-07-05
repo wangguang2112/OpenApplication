@@ -6,11 +6,11 @@ package com.guang.parse.type;
  * Description:
  */
 
-public class ResTableType implements IChunkHeader {
+public class ResTableTypeHeader implements IChunkHeader {
 
     public final static int NO_ENTRY = 0xFFFFFFFF;
 
-    public ResChunkHeader mResChunk_header = new ResChunkHeader();
+    public ResChunkHeader header = new ResChunkHeader();
 
 
     public byte id;
@@ -23,17 +23,17 @@ public class ResTableType implements IChunkHeader {
 
     public int entriesStart;
 
-    public ResTableConfig resConfig;
+    public ResTableConfig resConfig=new ResTableConfig();
 
     @Override
     public int getHeaderSize() {
-        return 0;
+        return header.getHeaderSize()+1+1+2+4+4+resConfig.getSize();
     }
 
     @Override
     public String toString() {
-        return "ResTableType{" +
-                "mResChunk_header=" + mResChunk_header +
+        return "ResTableTypeHeader{" +
+                "header=" + header +
                 ", id=" + id +
                 ", res0=" + res0 +
                 ", res1=" + res1 +

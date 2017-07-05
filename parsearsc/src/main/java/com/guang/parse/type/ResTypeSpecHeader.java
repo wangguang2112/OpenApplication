@@ -6,19 +6,19 @@ package com.guang.parse.type;
  * Description:
  */
 
-public class ResTableTypeSpec implements IChunkHeader {
+public class ResTypeSpecHeader implements IChunkHeader {
 
     public final static int SPEC_PUBLIC = 0x40000000;
 
     public ResChunkHeader header = new ResChunkHeader();
 
-    byte id;
+    public byte id;
 
-    byte res0;
+    public byte res0;
 
-    short res1;
+    public short res1;
 
-    int entryCount;
+    public int entryCount;
 
     @Override
     public int getHeaderSize() {
@@ -27,7 +27,7 @@ public class ResTableTypeSpec implements IChunkHeader {
 
     @Override
     public String toString() {
-        return "ResTableTypeSpec{" +
+        return "ResTypeSpecHeader{" +
                 "header=" + header +
                 ", id=" + id +
                 ", res0=" + res0 +

@@ -16,7 +16,7 @@ import android.widget.LinearLayout;
 
 
 /**
- * TODO: document your custom view class.
+ *
  */
 public class EdgeView extends ViewGroup {
     public static final String TAG = "EdgeView";

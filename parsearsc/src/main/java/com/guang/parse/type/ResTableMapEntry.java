@@ -12,9 +12,10 @@ public class ResTableMapEntry extends ResTableEntry {
 
     public int count;
 
+    public ResTableMap[] maps;
     @Override
     public int getSize() {
-        return super.getSize() + parent.getSize() + 4;
+        return super.getSize() + parent.getSize() + 4 +maps.length*maps[0].getSize();
     }
 
     @Override

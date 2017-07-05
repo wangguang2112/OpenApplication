@@ -1,8 +1,6 @@
 package com.guang.parse;
 
-import com.guang.parse.type.ResPackageChunk;
-import com.guang.parse.type.ResStringPoolChunk;
-import com.guang.parse.type.ResTableHeader;
+import com.guang.parse.type.RescFile;
 
 import java.io.File;
 
@@ -15,19 +13,8 @@ public class MainClass {
         byte[] srcByte=ParserUtils.readByte(arscFile);
         System.out.println("Now srcByte.length="+srcByte.length);
         System.out.println("");
-        ResTableHeader header=ParserUtils.parseResTableHeaderChunk(srcByte,0);
-        System.out.println(header);
+        RescFile file=ParserUtils.parseResFileStructure(srcByte);
         System.out.println("");
-        System.out.println("********************************************");
-        System.out.println("");
-        ResStringPoolChunk stringChunk=ParserUtils.parseStringPoolChunk(srcByte,header.getHeaderSize());
-        System.out.println("");
-        System.out.println("********************************************");
-        ResPackageChunk packageChunk = ParserUtils.parsePackageChunk(srcByte, header.getHeaderSize() + stringChunk.header.header.size);
-
-
-        System.out.println("");
-        System.out.println("********************************************");
-
+        ParserUtils.printArsc(file);
     }
 }

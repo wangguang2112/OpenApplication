@@ -14,5 +14,6 @@ public class ResPackageChunk implements IChunk {
 
     public ResStringPoolChunk resNameStrings;
 
+    public ResTypeChunk[] typeChunk;
 
 }

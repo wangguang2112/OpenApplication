@@ -64,6 +64,9 @@ public class ResChunkHeader implements IChunkHeader {
             this.value = (short) value;
         }
 
+        public short value(){
+            return this.value;
+        }
         @Override
         public String toString() {
             return String.valueOf(this.value);
