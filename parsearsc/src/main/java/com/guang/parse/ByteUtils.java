@@ -1,5 +1,11 @@
 package com.guang.parse;
 
+import com.guang.parse.type.ResPackageChunk;
+
+import java.io.ByteArrayOutputStream;
+import java.io.IOException;
+import java.io.UnsupportedEncodingException;
+import java.lang.reflect.Array;
 import java.util.Arrays;
 
 /**
@@ -9,6 +15,7 @@ import java.util.Arrays;
  */
 
 public class ByteUtils {
+
     public static int LONG_BYTE_COUNT = 8;
 
     public static int INT_BYTE_COUNT = 4;
@@ -48,5 +55,53 @@ public class ByteUtils {
 
     public static long OneByte2Long(byte i, int moveBit) {
         return (((long) i) & 0x000000FF) << moveBit;
+    }
+
+    public static byte[] toByte(int i) {
+        long a = Integer.toUnsignedLong(i);
+        byte[] origin = toByte(a);
+        return Arrays.copyOfRange(origin, 0, Integer.BYTES);
+    }
+
+    public static byte[] toByte(short i) {
+        long a = Integer.toUnsignedLong(i);
+        byte[] origin = toByte(a);
+        return Arrays.copyOfRange(origin, 0, Short.BYTES);
+
+    }
+
+    public static byte[] toByte(String i, int count) throws IOException {
+        byte[] origin = i.getBytes("utf-8");
+        if (count <= origin.length) {
+            return origin;
+        } else {
+            ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
+            outputStream.write(origin);
+            byte[] fill0 = new byte[count - origin.length];
+            Arrays.fill(fill0, (byte) 0);
+            outputStream.write(fill0);
+            byte[] result = outputStream.toByteArray();
+            outputStream.close();
+            return result;
+        }
+
+    }
+
+    public static byte[] toByte(String i) throws IOException {
+        return toByte(i, i.length() + 1);
+
+    }
+
+    public static byte[] toByte(long i) {
+        byte[] orgin = new byte[Long.BYTES];
+        orgin[0] = (byte) (i & 0xFF);
+        orgin[1] = (byte) ((i & 0xFF00) >>> 8);
+        orgin[2] = (byte) ((i & 0xFF0000) >>> 16);
+        orgin[3] = (byte) ((i & 0xFF000000) >>> 24);
+        orgin[4] = (byte) ((i & Long.decode("0xFF00000000")) >>> 32);
+        orgin[5] = (byte) ((i & Long.decode("0xFF0000000000")) >>> 40);
+        orgin[6] = (byte) ((i & Long.decode("0xFF000000000000")) >>> 48);
+        orgin[7] = (byte) (i >>> 56);
+        return orgin;
     }
 }

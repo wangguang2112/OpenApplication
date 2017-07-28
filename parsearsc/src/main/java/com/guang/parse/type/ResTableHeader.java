@@ -12,6 +12,7 @@ public class ResTableHeader implements IChunkHeader {
 
     public int packageCount;
 
+    public byte[] orginByte;
     @Override
     public String toString() {
         return "ResTableHeader{" +
@@ -20,6 +21,9 @@ public class ResTableHeader implements IChunkHeader {
                 '}';
     }
 
+    public byte[] toByte(){
+        return orginByte;
+    }
     @Override
     public int getHeaderSize() {
         return header.getHeaderSize() + 4;

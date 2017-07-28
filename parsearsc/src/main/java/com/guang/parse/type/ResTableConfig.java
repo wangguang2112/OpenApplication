@@ -1,5 +1,7 @@
 package com.guang.parse.type;
 
+import java.io.IOException;
+
 /**
  * Created by wangguang.
  * Date:2017/6/28
@@ -237,6 +239,7 @@ public class ResTableConfig implements IChunkBody {
 
     public byte[] localeVariant = new byte[8];
 
+    public byte[] orginByte;
     @Override
     public int getSize() {
         return 48;
@@ -304,6 +307,11 @@ public class ResTableConfig implements IChunkBody {
         }
     }
 
+    //TODO
+    @Override
+    public byte[] toByte() throws IOException {
+        return new byte[0];
+    }
 }
 
 

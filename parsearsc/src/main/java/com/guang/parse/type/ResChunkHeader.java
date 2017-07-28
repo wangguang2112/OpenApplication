@@ -1,5 +1,10 @@
 package com.guang.parse.type;
 
+import com.guang.parse.ByteUtils;
+
+import java.io.ByteArrayOutputStream;
+import java.io.IOException;
+
 /**
  * Created by wangguang.
  * Date:2017/6/27
@@ -30,6 +35,16 @@ public class ResChunkHeader implements IChunkHeader {
                 ", headerSize=" + headerSize +
                 ", size=" + size +
                 '}';
+    }
+    @Override
+    public byte[] toByte() throws IOException {
+        ByteArrayOutputStream outputStream=new ByteArrayOutputStream();
+        outputStream.write(ByteUtils.toByte(type));
+        outputStream.write(ByteUtils.toByte(headerSize));
+        outputStream.write(ByteUtils.toByte(size));
+        byte[] result= outputStream.toByteArray();
+        outputStream.close();
+        return result;
     }
 
     public enum Type {

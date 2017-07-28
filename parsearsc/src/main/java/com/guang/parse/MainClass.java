@@ -5,6 +5,7 @@ import com.guang.parse.type.RescFile;
 import java.io.File;
 
 public class MainClass {
+
     public static void main(String[] args){
         if(args.length!=2){
             throw new IllegalArgumentException("填入arsc文件 和目标文件");

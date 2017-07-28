@@ -105,6 +105,7 @@ public class ParserUtils {
         ResTableHeader header = new ResTableHeader();
         header.header = parseResChunkHeader(data, offset + 0);
         header.packageCount = byte2Int(data, header.header.getHeaderSize() + offset + 0);
+        header.orginByte =Arrays.copyOfRange(data,offset,offset+header.header.headerSize);
         return header;
     }
 
@@ -115,6 +116,7 @@ public class ParserUtils {
         chunk.styleIndexAry = parseStringPoolRef(data, offset + chunk.header.stringCount * INT_BYTE_COUNT + chunk.header.getHeaderSize(), chunk.header.styleCount);
         chunk.strings = parseStringPoolWithIndex(data, offset + chunk.header.stringsStart, chunk.header.stringCount, chunk.stringIndexAry);
         chunk.styles = parseStringPoolWithIndex(data, offset + chunk.header.styleStart, chunk.header.styleCount, chunk.styleIndexAry);
+        chunk.orginByte=Arrays.copyOfRange(data,offset,offset+chunk.header.header.size);
         return chunk;
     }
 
@@ -215,8 +217,9 @@ public class ParserUtils {
         config.screenSizeDp = byte2Int(data, start);
         start += INT_BYTE_COUNT;
         config.localeScript = Arrays.copyOfRange(data, start, start + 4);
-        start += 4;
+        start += INT_BYTE_COUNT;
         config.localeVariant = Arrays.copyOfRange(data, start, start + 8);
+        config.orginByte=Arrays.copyOfRange(data,offset,offset+config.getSize());
         return config;
     }
 
@@ -240,6 +243,7 @@ public class ParserUtils {
         header.lastPublicType = byte2Int(data, offset + header.header.getHeaderSize() + INT_BYTE_COUNT + PACKAGE_NAME_BYTE_COUNT + INT_BYTE_COUNT);
         header.keyStrings = byte2Int(data, offset + header.header.getHeaderSize() + INT_BYTE_COUNT + PACKAGE_NAME_BYTE_COUNT + INT_BYTE_COUNT + INT_BYTE_COUNT);
         header.lastPublicKey = byte2Int(data, offset + header.header.getHeaderSize() + INT_BYTE_COUNT + PACKAGE_NAME_BYTE_COUNT + INT_BYTE_COUNT + INT_BYTE_COUNT + INT_BYTE_COUNT);
+        header.orginByte=Arrays.copyOfRange(data,offset,offset+header.header.headerSize);
         return header;
     }
 
@@ -405,7 +409,8 @@ public class ParserUtils {
             System.out.printf("package id 0x%s name %s \n", Integer.toHexString(chunk.header.id), chunk.header.name);
             for (ResTypeChunk ch : chunk.typeChunk) {
                 String typeName = chunk.resTypeStrings.strings[ch.specChunk.header.id - 1].str;
-                System.out.printf("   type %s  entryCount %s\n", typeName, ch.specChunk.header.entryCount);
+                System.out.printf("   type %s  entryCount %s\n", typeName, ch.specChunk.header
+                        .entryCount);
                 for (ResTableTypeChunk ch2 : ch.typeChunks) {
                     System.out.printf("\n");
                     if (ch2.header.resConfig.version == 0) {

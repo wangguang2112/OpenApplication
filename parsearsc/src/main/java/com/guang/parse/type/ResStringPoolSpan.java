@@ -1,5 +1,7 @@
 package com.guang.parse.type;
 
+import java.io.IOException;
+
 /**
  * Created by wangguang.
  * Date:2017/6/27
@@ -27,5 +29,11 @@ public class ResStringPoolSpan implements IChunkBody {
     @Override
     public int getSize() {
         return name.getSize()+4+4;
+    }
+
+    //TODO
+    @Override
+    public byte[] toByte() throws IOException {
+        return new byte[0];
     }
 }

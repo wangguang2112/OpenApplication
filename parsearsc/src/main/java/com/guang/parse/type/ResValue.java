@@ -2,6 +2,8 @@ package com.guang.parse.type;
 
 import com.guang.parse.ParserUtils;
 
+import java.io.IOException;
+
 /**
  * Created by wangguang.
  * Date:2017/6/28
@@ -184,5 +186,11 @@ public class ResValue implements IChunkBody {
                 ", res0=" + res0 +
                 ", dataType=" + dataType +
                 '}';
+    }
+
+    //TODO
+    @Override
+    public byte[] toByte() throws IOException {
+        return new byte[0];
     }
 }

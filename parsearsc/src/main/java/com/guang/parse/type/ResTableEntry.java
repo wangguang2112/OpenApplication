@@ -1,5 +1,7 @@
 package com.guang.parse.type;
 
+import java.io.IOException;
+
 /**
  * Created by wangguang.
  * Date:2017/6/28
@@ -34,5 +36,11 @@ public class ResTableEntry implements IChunkBody {
                 ", flags=" + flags +
                 ", ref=" + ref +
                 '}';
+    }
+
+    //TODO
+    @Override
+    public byte[] toByte() throws IOException {
+        return new byte[0];
     }
 }

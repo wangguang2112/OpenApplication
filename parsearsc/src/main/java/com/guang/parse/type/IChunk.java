@@ -1,5 +1,7 @@
 package com.guang.parse.type;
 
+import java.io.IOException;
+
 /**
  * Created by wangguang.
  * Date:2017/6/27
@@ -7,5 +9,5 @@ package com.guang.parse.type;
  */
 
 public interface IChunk {
-
+    byte[] toByte() throws IOException;
 }

@@ -46,6 +46,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ExpandableListView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import java.util.ArrayList;
@@ -81,7 +82,13 @@ public class MainActivity extends BaseActivity implements AdapterView.OnItemClic
         mListView.setAdapter(adapter);
         mListView.setOnGroupClickListener(this);
         mListView.setOnChildClickListener(this);
-
+//        TextView textView= (TextView) findViewById(R.id.test_textview);
+//        textView.setText("11111111111111111111111111111111111111111111111111111111111111111111111111111"
+//                + "22222222222222222222222222222222222222222222222222222222222222222222222222222222"
+//                + "3333333333333333333333333333333333333333333333333333333333333333333333333333333333333"
+//                + "44444444444444444444444444444444444444444444444444444444444444444444444");
+//        textView.setMaxLines(3);
+//        Log.d("wang",textView.getText().toString());
     }
 
     @Override

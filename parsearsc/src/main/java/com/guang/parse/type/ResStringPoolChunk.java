@@ -1,5 +1,6 @@
 package com.guang.parse.type;
 
+import java.io.IOException;
 import java.util.Arrays;
 
 /**
@@ -19,10 +20,18 @@ public class ResStringPoolChunk implements IChunk {
     public ResString[] strings;
     public ResString[] styles;
 
+    public byte[] orginByte;
+
     @Override
     public String toString() {
         return "ResStringPoolChunk{" +
                 "header=" + header +
                 '}';
+    }
+
+    //TODO
+    @Override
+    public byte[] toByte() throws IOException {
+        return new byte[0];
     }
 }

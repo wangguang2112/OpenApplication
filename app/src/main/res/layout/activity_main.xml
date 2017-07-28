@@ -6,6 +6,11 @@
         android:layout_height="match_parent"
         android:orientation="vertical"
         tools:context="com.guang.wang.openapplication.MainActivity">
+    <TextView
+        android:id="@+id/test_textview"
+        android:layout_gravity="center_horizontal"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"/>
     <ExpandableListView android:layout_width="match_parent"
                         android:id="@+id/list"
                         android:childDivider="#eee"
