@@ -1,5 +1,8 @@
 package com.guang.parse.type;
 
+import com.guang.parse.ByteUtils;
+
+import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 
 /**
@@ -14,9 +17,18 @@ public class ResTableTypeChunk implements IChunk {
     public int[] typeIndexArray;
     public ResTableEntry[] tableEntry;
 
-    //TODO
     @Override
     public byte[] toByte() throws IOException {
-        return new byte[0];
+        ByteArrayOutputStream outputStream=new ByteArrayOutputStream();
+        outputStream.write(header.toByte());
+        for(int i:typeIndexArray){
+            outputStream.write(ByteUtils.toByte(i));
+        }
+        for(ResTableEntry entry:tableEntry){
+            outputStream.write(entry.toByte());
+        }
+        byte[] result= outputStream.toByteArray();
+        outputStream.close();
+        return result;
     }
 }

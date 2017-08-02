@@ -1,11 +1,7 @@
 package com.guang.parse;
 
-import com.guang.parse.type.ResPackageChunk;
-
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
-import java.io.UnsupportedEncodingException;
-import java.lang.reflect.Array;
 import java.util.Arrays;
 
 /**
@@ -40,7 +36,7 @@ public class ByteUtils {
         return (short) (i1 + i2);
     }
 
-    public static long byte2SLong(byte[] data, int start) {
+    public static long byte2Long(byte[] data, int start) {
         byte[] intbyte = Arrays.copyOfRange(data, start, start + INT_BYTE_COUNT);
         long i1 = intbyte[0] & 0x000000FF;
         long i2 = OneByte2Long(intbyte[1], 8);
@@ -88,7 +84,7 @@ public class ByteUtils {
     }
 
     public static byte[] toByte(String i) throws IOException {
-        return toByte(i, i.length() + 1);
+        return toByte(i, i.getBytes().length + 1);
 
     }
 
@@ -104,4 +100,28 @@ public class ByteUtils {
         orgin[7] = (byte) (i >>> 56);
         return orgin;
     }
+
+    public static byte[] encodeLength(int length){
+        if(length>127){
+            byte[] b=new byte[2];
+            b[0]= (byte) (128 |(length>>8&127));
+            b[1]= (byte) (length & 0x000000FF);
+            return b;
+        }else{
+            byte[] b=new byte[1];
+            b[0]=(byte) (length & 0x000000FF);
+            return b;
+        }
+    }
+
+    public static int decodeLength(byte[] data,int start){
+        if(data[start]>=128){
+           return  (byte) ((((OneByte2Long(data[start], 0) & 0x7F) << 8)) | (OneByte2Long(data[start+1], 0)));
+        }else{
+            return Byte.toUnsignedInt(data[start]);
+        }
+    }
+
+
+
 }

@@ -1,7 +1,9 @@
 package com.guang.parse.type;
 
+import com.guang.parse.ByteUtils;
 import com.guang.parse.ParserUtils;
 
+import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 
 /**
@@ -188,9 +190,15 @@ public class ResValue implements IChunkBody {
                 '}';
     }
 
-    //TODO
     @Override
     public byte[] toByte() throws IOException {
-        return new byte[0];
+        ByteArrayOutputStream outputStream=new ByteArrayOutputStream();
+        outputStream.write(ByteUtils.toByte(size));
+        outputStream.write(res0);
+        outputStream.write(dataType);
+        outputStream.write(ByteUtils.toByte(data));
+        byte[] result= outputStream.toByteArray();
+        outputStream.close();
+        return result;
     }
 }

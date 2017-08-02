@@ -1,5 +1,8 @@
 package com.guang.parse.type;
 
+import com.guang.parse.ByteUtils;
+
+import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 
 /**
@@ -26,9 +29,13 @@ public class ResTableMap implements IChunkBody {
                 '}';
     }
 
-    //TODO
     @Override
     public byte[] toByte() throws IOException {
-        return new byte[0];
+        ByteArrayOutputStream outputStream=new ByteArrayOutputStream();
+        outputStream.write(name.toByte());
+        outputStream.write(value.toByte());
+        byte[] result= outputStream.toByteArray();
+        outputStream.close();
+        return result;
     }
 }

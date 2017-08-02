@@ -7,6 +7,7 @@ import com.guang.parse.type.ResString;
 import com.guang.parse.type.ResStringPoolChunk;
 import com.guang.parse.type.ResStringPoolHeader;
 import com.guang.parse.type.ResStringPoolRef;
+import com.guang.parse.type.ResStringPoolSpan;
 import com.guang.parse.type.ResTableConfig;
 import com.guang.parse.type.ResTableEntry;
 import com.guang.parse.type.ResTableHeader;
@@ -115,7 +116,7 @@ public class ParserUtils {
         chunk.stringIndexAry = parseStringPoolRef(data, offset + chunk.header.getHeaderSize(), chunk.header.stringCount);
         chunk.styleIndexAry = parseStringPoolRef(data, offset + chunk.header.stringCount * INT_BYTE_COUNT + chunk.header.getHeaderSize(), chunk.header.styleCount);
         chunk.strings = parseStringPoolWithIndex(data, offset + chunk.header.stringsStart, chunk.header.stringCount, chunk.stringIndexAry);
-        chunk.styles = parseStringPoolWithIndex(data, offset + chunk.header.styleStart, chunk.header.styleCount, chunk.styleIndexAry);
+        chunk.styles = parseResStringStytle(data, offset + chunk.header.styleStart, chunk.header.styleCount, chunk.styleIndexAry);
         chunk.orginByte=Arrays.copyOfRange(data,offset,offset+chunk.header.header.size);
         return chunk;
     }
@@ -329,8 +330,12 @@ public class ParserUtils {
 
     public static ResString parseResString(byte[] data, int start) {
         ResString string = new ResString();
-        string.length = (int) OneByte2Long(data[start + 1], 0);
-        byte[] stringByte = Arrays.copyOfRange(data, start + 2, start + 2 + string.length);
+        int offset=start;
+        string.length=ByteUtils.decodeLength(data,offset);
+        offset +=string.length>127?2:1;
+        string.byteLength = ByteUtils.decodeLength(data,offset);
+        offset +=string.length>127?2:1;
+        byte[] stringByte = Arrays.copyOfRange(data, offset, offset + string.byteLength);
         try {
             string.str = new String(stringByte, "utf-8");
         } catch (UnsupportedEncodingException e) {
@@ -339,6 +344,28 @@ public class ParserUtils {
         return string;
     }
 
+    public static ResStringPoolSpan[][] parseResStringStytle(byte[] data, int start, int count, ResStringPoolRef[] refs){
+        ResStringPoolSpan[][] span=new ResStringPoolSpan[count][];
+        for(int i=0;i<span.length;i++){
+            ResStringPoolRef ref=refs[i];
+            int newStart=start+ref.index;
+            int c=0;
+            while(byte2Int(data,newStart+c*INT_BYTE_COUNT*3)!=-1){
+                c++;
+            }
+            if(c!=0) {
+                span[i] = new ResStringPoolSpan[c];
+                for(int j=0;j<c;j++) {
+                    span[i][j]=new ResStringPoolSpan();
+                    span[i][j].name.index =byte2Int(data,newStart);
+                    span[i][j].lastChar =byte2Int(data,newStart+INT_BYTE_COUNT);
+                    span[i][j].lastChar =byte2Int(data,newStart+INT_BYTE_COUNT+INT_BYTE_COUNT);
+                    newStart+=INT_BYTE_COUNT*3;
+                }
+            }
+        }
+       return span;
+    }
     public static String parseUTF8String(byte[] data, int start, int maxLen) {
         char lastChar = '\n';
         int nowPosition = 0;

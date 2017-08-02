@@ -1,5 +1,7 @@
 package com.guang.parse.type;
 
+import com.guang.parse.ByteUtils;
+
 import java.io.IOException;
 
 /**
@@ -22,9 +24,8 @@ public class ResTableRef implements IChunkBody{
                 '}';
     }
 
-    //TODO
     @Override
     public byte[] toByte() throws IOException {
-        return new byte[0];
+        return ByteUtils.toByte(index);
     }
 }

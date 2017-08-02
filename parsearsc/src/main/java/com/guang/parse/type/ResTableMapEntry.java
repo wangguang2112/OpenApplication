@@ -1,5 +1,10 @@
 package com.guang.parse.type;
 
+import com.guang.parse.ByteUtils;
+
+import java.io.ByteArrayOutputStream;
+import java.io.IOException;
+
 /**
  * Created by wangguang.
  * Date:2017/6/28
@@ -24,5 +29,21 @@ public class ResTableMapEntry extends ResTableEntry {
                 "parent=" + parent +
                 ", count=" + count +
                 '}';
+    }
+
+    @Override
+    public byte[] toByte() throws IOException {
+        ByteArrayOutputStream outputStream=new ByteArrayOutputStream();
+        outputStream.write(ByteUtils.toByte(size));
+        outputStream.write(ByteUtils.toByte(flags));
+        outputStream.write(ref.toByte());
+        outputStream.write(value.toByte());
+        outputStream.write(ByteUtils.toByte(count));
+        for(ResTableMap map:maps){
+            outputStream.write(map.toByte());
+        }
+        byte[] result= outputStream.toByteArray();
+        outputStream.close();
+        return result;
     }
 }

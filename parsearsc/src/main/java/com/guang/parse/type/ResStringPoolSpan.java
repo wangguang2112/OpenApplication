@@ -1,5 +1,8 @@
 package com.guang.parse.type;
 
+import com.guang.parse.ByteUtils;
+
+import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 
 /**
@@ -11,7 +14,7 @@ import java.io.IOException;
 public class ResStringPoolSpan implements IChunkBody {
 
 
-    public ResStringPoolRef name;
+    public ResStringPoolRef name = new ResStringPoolRef();
 
     public int firstChar;
 
@@ -28,12 +31,17 @@ public class ResStringPoolSpan implements IChunkBody {
 
     @Override
     public int getSize() {
-        return name.getSize()+4+4;
+        return name.getSize() + 4 + 4;
     }
 
-    //TODO
     @Override
     public byte[] toByte() throws IOException {
-        return new byte[0];
+        ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
+        outputStream.write(name.toByte());
+        outputStream.write(ByteUtils.toByte(firstChar));
+        outputStream.write(ByteUtils.toByte(lastChar));
+        byte[] result = outputStream.toByteArray();
+        outputStream.close();
+        return result;
     }
 }

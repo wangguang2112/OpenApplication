@@ -3,6 +3,7 @@ package com.guang.parse;
 import com.guang.parse.type.RescFile;
 
 import java.io.File;
+import java.io.IOException;
 
 public class MainClass {
 
@@ -16,6 +17,13 @@ public class MainClass {
         System.out.println("");
         RescFile file=ParserUtils.parseResFileStructure(srcByte);
         System.out.println("");
-        ParserUtils.printArsc(file);
+//        ParserUtils.printArsc(file);
+        try {
+            FileUtil.writeBytesToFile(new File("D:/Android_Project/OpenApplication/parsearsc/wangguang.arsc"),file.toByte());
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        ;
+
     }
 }

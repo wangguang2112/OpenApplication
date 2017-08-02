@@ -307,10 +307,14 @@ public class ResTableConfig implements IChunkBody {
         }
     }
 
-    //TODO
+    /**
+     * 直接使用原始数组
+     * @return
+     * @throws IOException
+     */
     @Override
     public byte[] toByte() throws IOException {
-        return new byte[0];
+        return orginByte;
     }
 }
 

@@ -1,7 +1,9 @@
 package com.guang.parse.type;
 
+import com.guang.parse.ByteUtils;
+
+import java.io.ByteArrayOutputStream;
 import java.io.IOException;
-import java.util.Arrays;
 
 /**
  * Created by wangguang.
@@ -18,7 +20,7 @@ public class ResStringPoolChunk implements IChunk {
     public ResStringPoolRef[] styleIndexAry;
 
     public ResString[] strings;
-    public ResString[] styles;
+    public ResStringPoolSpan[][] styles;
 
     public byte[] orginByte;
 
@@ -29,9 +31,31 @@ public class ResStringPoolChunk implements IChunk {
                 '}';
     }
 
-    //TODO
     @Override
     public byte[] toByte() throws IOException {
-        return new byte[0];
+        ByteArrayOutputStream outputStream=new ByteArrayOutputStream();
+        outputStream.write(header.toByte());
+        for(ResStringPoolRef strIndex:stringIndexAry) {
+            outputStream.write(strIndex.toByte());
+        }
+        for(ResStringPoolRef styIndex:styleIndexAry) {
+            outputStream.write(styIndex.toByte());
+        }
+        for(ResString str:strings){
+            outputStream.write(str.toByte());
+        }
+        for (ResStringPoolSpan[] sty : styles) {
+            if (sty != null) {
+                for (ResStringPoolSpan st : sty) {
+                    outputStream.write(st.toByte());
+                }
+            }
+            outputStream.write(ByteUtils.toByte(0xFFFFFFFF));
+        }
+        outputStream.write(ByteUtils.toByte(0xFFFFFFFF));
+        outputStream.write(ByteUtils.toByte(0xFFFFFFFF));
+        byte[] result= outputStream.toByteArray();
+        outputStream.close();
+        return result;
     }
 }

@@ -1,5 +1,6 @@
 package com.guang.parse.type;
 
+import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 
 /**
@@ -12,9 +13,15 @@ public class ResTypeChunk implements IChunk {
     public ResTypeSpecChunk specChunk;
     public ResTableTypeChunk[] typeChunks;
 
-    //TODO
     @Override
     public byte[] toByte() throws IOException {
-        return new byte[0];
+        ByteArrayOutputStream outputStream=new ByteArrayOutputStream();
+        outputStream.write(specChunk.toByte());
+        for(ResTableTypeChunk chunk:typeChunks){
+            outputStream.write(chunk.toByte());
+        }
+        byte[] result= outputStream.toByteArray();
+        outputStream.close();
+        return result;
     }
 }

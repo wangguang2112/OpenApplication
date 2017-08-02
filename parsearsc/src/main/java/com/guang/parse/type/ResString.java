@@ -1,5 +1,8 @@
 package com.guang.parse.type;
 
+import com.guang.parse.ByteUtils;
+
+import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 
 /**
@@ -10,14 +13,19 @@ import java.io.IOException;
 
 public class ResString implements IChunkBody {
 
+    //字符串的长度
     public int length;
+
+    //字节的长度
+    public int byteLength;
+
     public String str;
 
     @Override
     public int getSize() {
-        if(str!=null) {
-            return length * 4 + str.length();
-        }else{
+        if (str != null) {
+            return byteLength * 4 + str.length();
+        } else {
             return 0;
         }
     }
@@ -32,9 +40,14 @@ public class ResString implements IChunkBody {
         return str.equals(obj);
     }
 
-    //TODO
     @Override
     public byte[] toByte() throws IOException {
-        return new byte[0];
+        ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
+        outputStream.write(ByteUtils.encodeLength(length));
+        outputStream.write(ByteUtils.encodeLength(byteLength));
+        outputStream.write(ByteUtils.toByte(str));
+        byte[] result = outputStream.toByteArray();
+        outputStream.close();
+        return result;
     }
 }

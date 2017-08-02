@@ -1,5 +1,8 @@
 package com.guang.parse.type;
 
+import com.guang.parse.ByteUtils;
+
+import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 
 /**
@@ -38,9 +41,16 @@ public class ResTypeSpecHeader implements IChunkHeader {
                 '}';
     }
 
-    //TODO
     @Override
     public byte[] toByte() throws IOException {
-        return new byte[0];
+        ByteArrayOutputStream outputStream=new ByteArrayOutputStream();
+        outputStream.write(header.toByte());
+        outputStream.write(id);
+        outputStream.write(res0);
+        outputStream.write(ByteUtils.toByte(res1));
+        outputStream.write(ByteUtils.toByte(entryCount));
+        byte[] result= outputStream.toByteArray();
+        outputStream.close();
+        return result;
     }
 }

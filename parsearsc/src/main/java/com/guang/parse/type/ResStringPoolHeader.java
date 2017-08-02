@@ -1,5 +1,8 @@
 package com.guang.parse.type;
 
+import com.guang.parse.ByteUtils;
+
+import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 
 /**
@@ -44,9 +47,17 @@ public class ResStringPoolHeader implements IChunkHeader {
                 '}';
     }
 
-    //TODO
     @Override
     public byte[] toByte() throws IOException {
-        return new byte[0];
+        ByteArrayOutputStream outputStream=new ByteArrayOutputStream();
+        outputStream.write(header.toByte());
+        outputStream.write(ByteUtils.toByte(stringCount));
+        outputStream.write(ByteUtils.toByte(styleCount));
+        outputStream.write(ByteUtils.toByte(flags));
+        outputStream.write(ByteUtils.toByte(stringsStart));
+        outputStream.write(ByteUtils.toByte(styleStart));
+        byte[] result= outputStream.toByteArray();
+        outputStream.close();
+        return result;
     }
 }

@@ -1,5 +1,7 @@
 package com.guang.parse.type;
 
+import com.guang.parse.ByteUtils;
+
 import java.io.IOException;
 
 /**
@@ -24,9 +26,8 @@ public class ResStringPoolRef implements IChunkBody {
         return 4;
     }
 
-    //TODO
     @Override
     public byte[] toByte() throws IOException {
-        return new byte[0];
+        return ByteUtils.toByte(index);
     }
 }
