@@ -1,1 +1,1 @@
-include ':app', ':New_UIComponents', ':AutoVo', ':autovocompiler', ':gradleplugin', ':parsearsc'
+include ':app', ':New_UIComponents', ':AutoVo', ':autovocompiler', ':gradleplugin', ':parsearsc', ':testjava'

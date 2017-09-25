@@ -21,6 +21,7 @@ import com.guang.wang.openapplication.scroll.NestedScrollActivity;
 import com.guang.wang.openapplication.scroll.ScrollActivity;
 import com.guang.wang.openapplication.scroll.ScrollerActivity;
 import com.guang.wang.openapplication.scroll.TScrollActivity;
+import com.guang.wang.openapplication.service.TraceLogService;
 import com.guang.wang.openapplication.syn.AsynActivity;
 import com.guang.wang.openapplication.webview.PagerWebViewActivity;
 import com.guang.wang.openapplication.webview.WebViewActivity;
@@ -28,6 +29,7 @@ import com.guang.wang.openapplication.webview.WebViewActivity;
 import android.Manifest;
 import android.app.Activity;
 import android.app.ActivityOptions;
+import android.app.Service;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
@@ -63,10 +65,17 @@ public class MainActivity extends BaseActivity implements AdapterView.OnItemClic
     private List<String> mGroupName;
 
     private List<List<String>> mChildName;
-    private Class<? extends Activity>[] mActivities = new Class[]{null, OkhttpMainActivity.class, HttpUrlCActivity.class, RxJavaActivity.class, AsynActivity.class, DialogActivity.class, WebViewActivity.class,
-            PagerWebViewActivity.class, ScrollActivity.class, TScrollActivity.class, ScrollerActivity.class, DragHelperActivity.class, NestedScrollActivity.class,GustureActivity.class, AnimateActivity.class,
+
+    private Class<? extends Activity>[] mActivities = new Class[]{null, OkhttpMainActivity.class, HttpUrlCActivity.class, RxJavaActivity.class, AsynActivity.class, DialogActivity.class,
+            WebViewActivity.class,
+            PagerWebViewActivity.class, ScrollActivity.class, TScrollActivity.class, ScrollerActivity.class, DragHelperActivity.class, NestedScrollActivity.class, GustureActivity.class,
+            AnimateActivity.class,
             RefreshListViewActivity.class, NotifyActivity.class, OOMActivity.class, LruCacheActivity.class, DiskCacheActivity.class, LevelDbActivity.class, EncryptActivity.class, AnnotaActivity.class,
             LoadActivity.class};
+
+    private Class<? extends Service>[] mServices = new Class[]{
+            TraceLogService.class
+    };
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -77,18 +86,10 @@ public class MainActivity extends BaseActivity implements AdapterView.OnItemClic
                                    .add(new MyFramgment(), "test")
                                    .commit();
         mListView = (ExpandableListView) findViewById(R.id.list);
-//        adapter=new ArrayAdapter<String>(this,android.R.layout.simple_list_item_1,texts);
         initAdapterData();
         mListView.setAdapter(adapter);
         mListView.setOnGroupClickListener(this);
         mListView.setOnChildClickListener(this);
-//        TextView textView= (TextView) findViewById(R.id.test_textview);
-//        textView.setText("11111111111111111111111111111111111111111111111111111111111111111111111111111"
-//                + "22222222222222222222222222222222222222222222222222222222222222222222222222222222"
-//                + "3333333333333333333333333333333333333333333333333333333333333333333333333333333333333"
-//                + "44444444444444444444444444444444444444444444444444444444444444444444444");
-//        textView.setMaxLines(3);
-//        Log.d("wang",textView.getText().toString());
     }
 
     @Override
@@ -117,23 +118,24 @@ public class MainActivity extends BaseActivity implements AdapterView.OnItemClic
     }
 
     private void initAdapterData() {
-        mGroupName = Arrays.asList("应用程序", "okhttp", "rxjava", "asyn", "dialog", "web", "scroll", "animate", "imView","notify", "cache","db","encrypt","Annotation","PLUGIN");
+        mGroupName = Arrays.asList("应用程序", "okhttp", "rxjava", "asyn", "dialog", "web", "scroll", "animate", "imView", "notify", "cache", "db", "encrypt", "Annotation", "PLUGIN", "service");
         mChildName = new ArrayList<>();
         mChildName.add(Arrays.asList("应用程序"));
-        mChildName.add(Arrays.asList("okhttp","httpurl"));
+        mChildName.add(Arrays.asList("okhttp", "httpurl"));
         mChildName.add(Arrays.asList("rxjava"));
         mChildName.add(Arrays.asList("asyn"));
         mChildName.add(Arrays.asList("dialog"));
         mChildName.add(Arrays.asList("web", "webpager"));
-        mChildName.add(Arrays.asList("scroll", "Tscroll", "Scroller", "DragHelper", "Nested","Gesture"));
+        mChildName.add(Arrays.asList("scroll", "Tscroll", "Scroller", "DragHelper", "Nested", "Gesture"));
         mChildName.add(Arrays.asList("animate"));
         mChildName.add(Arrays.asList("RefreshListView"));
         mChildName.add(Arrays.asList("nofity"));
-        mChildName.add(Arrays.asList("oom","lru","disklru"));
+        mChildName.add(Arrays.asList("oom", "lru", "disklru"));
         mChildName.add(Arrays.asList("levelDB"));
         mChildName.add(Arrays.asList("encrypt"));
         mChildName.add(Arrays.asList("annotation"));
         mChildName.add(Arrays.asList("puglin"));
+        mChildName.add(Arrays.asList("service"));
         adapter = new MainExListAdapter(this, mGroupName, mChildName);
     }
 
@@ -159,10 +161,11 @@ public class MainActivity extends BaseActivity implements AdapterView.OnItemClic
                 }
                 startActivity(intent);
                 finish();
+            } else if (mGroupName.get(groupPosition).equals("service")) {
+                startService(new Intent(this, mServices[0]));
             } else {
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-                    startActivity(new Intent(this, mActivities[culAllSize(mChildName, groupPosition)]), ActivityOptions.makeSceneTransitionAnimation(this)
-                                                                                                                       .toBundle());
+                    startActivity(new Intent(this, mActivities[culAllSize(mChildName, groupPosition)]), ActivityOptions.makeSceneTransitionAnimation(this).toBundle());
                 } else {
                     startActivity(new Intent(this, mActivities[culAllSize(mChildName, groupPosition)]));
                 }
@@ -172,6 +175,12 @@ public class MainActivity extends BaseActivity implements AdapterView.OnItemClic
             return false;
         }
 
+    }
+
+    @Override
+    public void finish() {
+        super.finish();
+        overridePendingTransition(R.anim.slide_in_from_left, R.anim.slide_out_to_right);
     }
 
     private int culAllSize(List<List<String>> lists, int position) {
@@ -189,7 +198,10 @@ public class MainActivity extends BaseActivity implements AdapterView.OnItemClic
 
     @Override
     public boolean onChildClick(ExpandableListView parent, View v, int groupPosition, int childPosition, long id) {
-        if (mChildName.get(groupPosition)
+        if(mGroupName.get(groupPosition).equals("service")){
+            startService(new Intent(this, mServices[childPosition]));
+            return true;
+        } else if (mChildName.get(groupPosition)
                       .size() != 1) {
             startActivity(new Intent(this, mActivities[culAllSize(mChildName, groupPosition) + childPosition]));
             return true;
