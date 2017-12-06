@@ -5,7 +5,6 @@
     <uses-permission android:name="android.permission.CALL_PHONE"/>
     <uses-permission android:name="android.permission.ACCESS_NOTIFICATION_POLICY"/>
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
-
     <uses-permission android:name="android.permission.INTERNET"/>
 
     <application
@@ -81,10 +80,14 @@
         </activity>
         <activity android:name=".puglin.LoadActivity">
         </activity>
+
         <service
             android:name=".service.TraceLogService"
             android:enabled="true">
         </service>
+
+        <activity android:name=".test.TestActivity">
+        </activity>
     </application>
 
 </manifest>

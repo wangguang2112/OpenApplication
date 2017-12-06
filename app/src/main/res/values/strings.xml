@@ -1,6 +1,6 @@
 <resources>
     <string name="app_name">OpenApplication</string>
-       <string name="normal_content_1">
+    <string name="normal_content_1">
         111\n11111111\n1111\n111v111111111111\n11111\n111111111111\n111111111111\n11111111\n11111\n111v111111111111\n11111\n111111111111\n111111
     </string>
 </resources>
