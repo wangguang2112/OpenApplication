@@ -20,6 +20,8 @@ import rx.Subscription;
 public class BaseActivity extends AppCompatActivity {
     List<Subscription> list=new ArrayList<>();
     ProgressDialog mDialog;
+
+    protected final String TAG=this.getClass().getSimpleName();
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

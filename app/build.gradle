@@ -1,9 +1,9 @@
 apply plugin: 'com.android.application'
 
 repositories {
-    maven {
-        url "http://dl.bintray.com/stojan/android"
-    }
+//    maven {
+//        url "http://dl.bintray.com/stojan/android"
+//    }
 }
 android {
     compileSdkVersion 25
@@ -32,7 +32,6 @@ android {
 dependencies {
     compile fileTree(include: ['*.jar'], dir: 'libs')
     compile project(':New_UIComponents')
-    compile 'com.android.support.constraint:constraint-layout:1.0.2'
     testCompile 'junit:junit:4.12'
     compile 'com.android.support:appcompat-v7:23.4.0'
     compile 'com.squareup.okhttp3:okhttp:3.2.0'
@@ -40,19 +39,20 @@ dependencies {
     compile 'com.jakewharton.rxbinding:rxbinding:0.3.0'
     compile 'com.jakewharton:disklrucache:2.0.2'
     compile 'com.jakewharton:butterknife:8.4.0'
-    compile 'com.github.hf:leveldb:1.19.0@aar'
+//    compile 'com.github.hf:leveldb:1.19.0@aar'
     compile 'com.facebook.conceal:conceal:1.1.3@aar'
     provided 'com.jakewharton:butterknife-compiler:8.4.0'
-    compile project(":gradleplugin")
+    compile project(':gradleplugin')
     provided 'com.tencent.tinker:tinker-android-anno:1.7.9'
-    compile "com.tencent.tinker:tinker-android-lib:1.7.9"
-//    provided project(":setannotation")
-//    provided project(":AutoVo")
-//    apt project(":autovocompiler")
+    compile 'com.tencent.tinker:tinker-android-lib:1.7.9'
+    compile 'com.code19.library:library:0.0.7'
+    //    provided project(":setannotation")
+    //    provided project(":AutoVo")
+    //    apt project(":autovocompiler")
     //optional, help to generate the final application
-//    provided('com.tencent.tinker:tinker-android-anno:1.7.7')
+    //    provided('com.tencent.tinker:tinker-android-anno:1.7.7')
     //tinker's main Android lib
-//    compile('com.tencent.tinker:tinker-android-lib:1.7.7')
+    //    compile('com.tencent.tinker:tinker-android-lib:1.7.7')
 }
 
 //apply plugin:'com.wang.groovy.MyPlugin'

@@ -23,6 +23,7 @@ import com.guang.wang.openapplication.scroll.ScrollerActivity;
 import com.guang.wang.openapplication.scroll.TScrollActivity;
 import com.guang.wang.openapplication.service.TraceLogService;
 import com.guang.wang.openapplication.syn.AsynActivity;
+import com.guang.wang.openapplication.test.TestActivity;
 import com.guang.wang.openapplication.webview.PagerWebViewActivity;
 import com.guang.wang.openapplication.webview.WebViewActivity;
 
@@ -71,7 +72,7 @@ public class MainActivity extends BaseActivity implements AdapterView.OnItemClic
             PagerWebViewActivity.class, ScrollActivity.class, TScrollActivity.class, ScrollerActivity.class, DragHelperActivity.class, NestedScrollActivity.class, GustureActivity.class,
             AnimateActivity.class,
             RefreshListViewActivity.class, NotifyActivity.class, OOMActivity.class, LruCacheActivity.class, DiskCacheActivity.class, LevelDbActivity.class, EncryptActivity.class, AnnotaActivity.class,
-            LoadActivity.class};
+            LoadActivity.class, TestActivity.class};
 
     private Class<? extends Service>[] mServices = new Class[]{
             TraceLogService.class
@@ -118,7 +119,7 @@ public class MainActivity extends BaseActivity implements AdapterView.OnItemClic
     }
 
     private void initAdapterData() {
-        mGroupName = Arrays.asList("应用程序", "okhttp", "rxjava", "asyn", "dialog", "web", "scroll", "animate", "imView", "notify", "cache", "db", "encrypt", "Annotation", "PLUGIN", "service");
+        mGroupName = Arrays.asList("应用程序", "okhttp", "rxjava", "asyn", "dialog", "web", "scroll", "animate", "imView", "notify", "cache", "db", "encrypt", "Annotation", "PLUGIN", "test","service");
         mChildName = new ArrayList<>();
         mChildName.add(Arrays.asList("应用程序"));
         mChildName.add(Arrays.asList("okhttp", "httpurl"));
@@ -135,6 +136,7 @@ public class MainActivity extends BaseActivity implements AdapterView.OnItemClic
         mChildName.add(Arrays.asList("encrypt"));
         mChildName.add(Arrays.asList("annotation"));
         mChildName.add(Arrays.asList("puglin"));
+        mChildName.add(Arrays.asList("test"));
         mChildName.add(Arrays.asList("service"));
         adapter = new MainExListAdapter(this, mGroupName, mChildName);
     }
